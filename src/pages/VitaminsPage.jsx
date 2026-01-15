@@ -16,6 +16,7 @@ export default function VitaminsPage() {
   const [vitamins, setVitamins] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null); // Для подтверждения удаления
   const [formData, setFormData] = useState({
     name: '',
     time: '09:00',
@@ -76,6 +77,11 @@ export default function VitaminsPage() {
 
   const handleDelete = (id) => {
     saveVitamins(vitamins.filter(v => v.id !== id));
+    setDeleteTarget(null);
+  };
+
+  const confirmDelete = (vitamin) => {
+    setDeleteTarget(vitamin);
   };
 
   const toggleEnabled = (id) => {
@@ -151,7 +157,7 @@ export default function VitaminsPage() {
                     <Edit3 size={16} />
                     <span>Изменить</span>
                   </button>
-                  <button className="vitamin-action delete" onClick={() => handleDelete(vitamin.id)}>
+                  <button className="vitamin-action delete" onClick={() => confirmDelete(vitamin)}>
                     <Trash2 size={16} />
                     <span>Удалить</span>
                   </button>
@@ -211,6 +217,26 @@ export default function VitaminsPage() {
                 disabled={!formData.name.trim()}
               >
                 Сохранить
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Модалка подтверждения удаления */}
+      {deleteTarget && (
+        <div className="modal-overlay" onClick={() => setDeleteTarget(null)}>
+          <div className="delete-confirm-modal" onClick={e => e.stopPropagation()}>
+            <div className="delete-confirm-icon">🗑️</div>
+            <h3>Удалить витамин?</h3>
+            <p>«{deleteTarget.name}» будет удалён из списка напоминаний</p>
+            <div className="delete-confirm-actions">
+              <button className="cancel-btn" onClick={() => setDeleteTarget(null)}>
+                Отмена
+              </button>
+              <button className="confirm-btn" onClick={() => handleDelete(deleteTarget.id)}>
+                <Trash2 size={16} />
+                Удалить
               </button>
             </div>
           </div>

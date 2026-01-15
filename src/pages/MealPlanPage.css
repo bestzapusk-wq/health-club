@@ -185,6 +185,31 @@
   height: 12px;
 }
 
+/* ===== SWIPE HINT ===== */
+.swipe-hint {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  font-size: 13px;
+  font-weight: 600;
+  color: #92400E;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+.swipe-hint span:first-child {
+  text-align: left;
+}
+
+.swipe-hint span:last-child {
+  text-align: right;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
 /* ===== CARDS AREA ===== */
 .cards-area {
   flex: 1;

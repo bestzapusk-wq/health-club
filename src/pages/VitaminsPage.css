@@ -322,6 +322,70 @@
   box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
 }
 
+/* Модалка подтверждения удаления */
+.delete-confirm-modal {
+  background: white;
+  border-radius: 24px;
+  padding: 32px 24px;
+  width: calc(100% - 32px);
+  max-width: 340px;
+  text-align: center;
+  margin: auto;
+  animation: scaleIn 0.2s ease;
+}
+
+.delete-confirm-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.delete-confirm-modal h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.delete-confirm-modal > p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.delete-confirm-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.delete-confirm-actions .cancel-btn {
+  flex: 1;
+  padding: 14px;
+  background: #F3F4F6;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.delete-confirm-actions .confirm-btn {
+  flex: 1;
+  padding: 14px;
+  background: #EF4444;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -330,4 +394,9 @@
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }

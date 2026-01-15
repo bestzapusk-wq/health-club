@@ -2,7 +2,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   background: #F9FAFB;
-  padding-bottom: 180px;
+  padding-bottom: calc(180px + 70px + env(safe-area-inset-bottom));
 }
 
 /* Header */
@@ -340,5 +340,102 @@
   height: 50vh;
   font-size: 16px;
   color: var(--muted);
+}
+
+/* Модалки */
+.course-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.course-modal {
+  background: white;
+  border-radius: 24px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  position: relative;
+  animation: scaleIn 0.2s ease;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.course-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: #F3F4F6;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.course-modal-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.course-modal h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.course-modal > p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.course-modal-btn {
+  width: 100%;
+  padding: 14px;
+  background: #F3F4F6;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.course-modal-btn.whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.course-modal-btn:active {
+  transform: scale(0.98);
 }
 

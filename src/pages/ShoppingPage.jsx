@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Plus, Check, Play, X } from 'lucide-react';
+import { ArrowLeft, Plus, Check, Play, X, Trash2 } from 'lucide-react';
 import BottomNav from '../components/layout/BottomNav';
 import { BASE_SHOPPING_LIST, SHOPPING_VIDEO } from '../data/shopping';
 import './ShoppingPage.css';
@@ -11,6 +11,7 @@ export default function ShoppingPage() {
   const [customItems, setCustomItems] = useState([]);
   const [showAddInput, setShowAddInput] = useState(false);
   const [newItem, setNewItem] = useState('');
+  const [showVideoSoon, setShowVideoSoon] = useState(false);
 
   useEffect(() => {
     setChecked(JSON.parse(localStorage.getItem('shopping_checked') || '[]'));
@@ -54,10 +55,20 @@ export default function ShoppingPage() {
   const checkedCount = checked.length;
   const totalCount = BASE_SHOPPING_LIST.reduce((acc, g) => acc + g.items.length, 0) + customItems.length;
 
+  const clearAll = () => {
+    setChecked([]);
+    localStorage.setItem('shopping_checked', '[]');
+  };
+
+  const handleVideoClick = () => {
+    setShowVideoSoon(true);
+    setTimeout(() => setShowVideoSoon(false), 2000);
+  };
+
   return (
     <div className="shopping-page">
       <header className="shopping-header">
-        <button className="back-btn" onClick={() => navigate('/food')}>
+        <button className="back-btn" onClick={() => navigate('/food')} aria-label="Назад">
           <ArrowLeft size={24} />
         </button>
         <h1>Список продуктов</h1>
@@ -66,7 +77,7 @@ export default function ShoppingPage() {
 
       <main className="shopping-content">
         {/* Видео */}
-        <div className="video-card">
+        <div className="video-card" onClick={handleVideoClick}>
           <div className="video-thumb">
             <img 
               src={SHOPPING_VIDEO.thumbnail} 
@@ -75,6 +86,11 @@ export default function ShoppingPage() {
             <div className="play-icon">
               <Play size={24} />
             </div>
+            {showVideoSoon && (
+              <div className="video-soon-badge">
+                🎬 Видео скоро появится!
+              </div>
+            )}
           </div>
           <div className="video-info">
             <h4>{SHOPPING_VIDEO.title}</h4>
@@ -84,7 +100,15 @@ export default function ShoppingPage() {
 
         {/* Прогресс */}
         <div className="progress-info">
-          <span>Куплено: {checkedCount} из {totalCount}</span>
+          <div className="progress-header">
+            <span>Куплено: {checkedCount} из {totalCount}</span>
+            {checkedCount > 0 && (
+              <button className="clear-all-btn" onClick={clearAll}>
+                <Trash2 size={14} />
+                Сбросить
+              </button>
+            )}
+          </div>
           <div className="progress-bar">
             <div 
               className="progress-fill"

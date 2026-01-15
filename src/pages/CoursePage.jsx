@@ -1,24 +1,41 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Play, BookOpen, Clock, Star, Users, Check, Lock, CreditCard, Shield } from 'lucide-react';
+import { ArrowLeft, Play, BookOpen, Clock, Star, Users, Check, Lock, CreditCard, Shield, MessageCircle, X } from 'lucide-react';
 import { COURSES } from '../data/courses';
+import BottomNav from '../components/layout/BottomNav';
 import './CoursePage.css';
 
 export default function CoursePage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const course = COURSES.find(c => c.id === id);
+  const [showTrailerModal, setShowTrailerModal] = useState(false);
+  const [showBuyModal, setShowBuyModal] = useState(false);
+
+  const handleBuyCourse = () => {
+    const phone = '77472370208';
+    const message = encodeURIComponent(`Здравствуйте! Хочу приобрести курс "${course?.title}"`);
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+  };
+
+  const handleStartFree = () => {
+    const phone = '77472370208';
+    const message = encodeURIComponent(`Здравствуйте! Хочу начать бесплатный курс "${course?.title}"`);
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+  };
 
   if (!course) {
     return (
       <div className="course-page">
         <header className="course-header">
-          <button className="back-btn" onClick={() => navigate(-1)}>
+          <button className="back-btn" onClick={() => navigate(-1)} aria-label="Назад">
             <ArrowLeft size={24} />
           </button>
         </header>
         <div className="course-not-found">
           <p>Курс не найден</p>
         </div>
+        <BottomNav />
       </div>
     );
   }
@@ -30,7 +47,7 @@ export default function CoursePage() {
   return (
     <div className="course-page">
       <header className="course-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
+        <button className="back-btn" onClick={() => navigate(-1)} aria-label="Назад">
           <ArrowLeft size={24} />
         </button>
         <span className="header-title">{course.isFree ? 'Бесплатный курс' : 'Программа'}</span>
@@ -40,7 +57,7 @@ export default function CoursePage() {
         {/* Hero */}
         <div className="course-hero">
           <img src={course.image} alt={course.title} />
-          <button className="play-trailer">
+          <button className="play-trailer" onClick={() => setShowTrailerModal(true)}>
             <Play size={32} />
             <span>Смотреть трейлер</span>
           </button>
@@ -132,8 +149,8 @@ export default function CoursePage() {
       {/* Bottom CTA */}
       <div className="course-bottom">
         {course.isFree ? (
-          <button className="cta-btn free">
-            <Play size={20} />
+          <button className="cta-btn free" onClick={handleStartFree}>
+            <MessageCircle size={20} />
             Начать бесплатно
           </button>
         ) : (
@@ -147,7 +164,7 @@ export default function CoursePage() {
               </div>
               {discount > 0 && <span className="discount">-{discount}%</span>}
             </div>
-            <button className="cta-btn paid">
+            <button className="cta-btn paid" onClick={() => setShowBuyModal(true)}>
               <CreditCard size={20} />
               Купить курс
             </button>
@@ -158,6 +175,43 @@ export default function CoursePage() {
           </>
         )}
       </div>
+
+      {/* Модалка трейлера */}
+      {showTrailerModal && (
+        <div className="course-modal-overlay" onClick={() => setShowTrailerModal(false)}>
+          <div className="course-modal" onClick={e => e.stopPropagation()}>
+            <button className="course-modal-close" onClick={() => setShowTrailerModal(false)}>
+              <X size={20} />
+            </button>
+            <div className="course-modal-icon">🎬</div>
+            <h3>Трейлер скоро!</h3>
+            <p>Мы готовим видео-превью для этого курса. Совсем скоро вы сможете его посмотреть!</p>
+            <button className="course-modal-btn" onClick={() => setShowTrailerModal(false)}>
+              Понятно
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Модалка покупки */}
+      {showBuyModal && (
+        <div className="course-modal-overlay" onClick={() => setShowBuyModal(false)}>
+          <div className="course-modal" onClick={e => e.stopPropagation()}>
+            <button className="course-modal-close" onClick={() => setShowBuyModal(false)}>
+              <X size={20} />
+            </button>
+            <div className="course-modal-icon">💬</div>
+            <h3>Оформить покупку</h3>
+            <p>Напишите нам в WhatsApp для оформления курса «{course.title}»</p>
+            <button className="course-modal-btn whatsapp" onClick={handleBuyCourse}>
+              <MessageCircle size={18} />
+              Написать в WhatsApp
+            </button>
+          </div>
+        </div>
+      )}
+
+      <BottomNav />
     </div>
   );
 }

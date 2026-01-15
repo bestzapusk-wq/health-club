@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Settings, Clock, Flame, ChevronLeft, ChevronRight, Check, X, Heart, FileText, Plus, ChevronRight as ArrowRight, Trash2, Loader } from 'lucide-react';
+import { ArrowLeft, Clock, Flame, ChevronLeft, ChevronRight, Check, X, Heart, FileText, Plus, ChevronRight as ArrowRight, Trash2, Loader } from 'lucide-react';
 import BottomNav from '../components/layout/BottomNav';
 import { getAllRecipes } from '../lib/recipesService';
 import './MealPlanPage.css';
@@ -57,6 +57,9 @@ export default function MealPlanPage() {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [detailRecipe, setDetailRecipe] = useState(null);
+  const [showSwipeHint, setShowSwipeHint] = useState(() => {
+    return !localStorage.getItem('meal_swipe_hint_seen');
+  });
   
   const cardRef = useRef(null);
   const startPos = useRef({ x: 0, y: 0 });
@@ -123,6 +126,12 @@ export default function MealPlanPage() {
   const handleSwipe = (direction) => {
     if (!currentRecipe) return;
     setSwiping(direction);
+    
+    // Скрываем подсказку после первого свайпа
+    if (showSwipeHint) {
+      setShowSwipeHint(false);
+      localStorage.setItem('meal_swipe_hint_seen', 'true');
+    }
     
     setTimeout(() => {
       if (direction === 'right') {
@@ -210,13 +219,11 @@ export default function MealPlanPage() {
     return (
       <div className="meal-plan-page">
         <header className="meal-plan-header">
-          <button className="back-btn" onClick={() => navigate('/food')}>
+          <button className="back-btn" onClick={() => navigate('/food')} aria-label="Назад">
             <ArrowLeft size={22} />
           </button>
           <span className="header-title">Загрузка...</span>
-          <button className="settings-btn">
-            <Settings size={22} />
-          </button>
+          <div style={{ width: 36 }} />
         </header>
         
         <div className="loading-container">
@@ -245,9 +252,7 @@ export default function MealPlanPage() {
             <ChevronRight size={20} />
           </button>
         </div>
-        <button className="settings-btn">
-          <Settings size={22} />
-        </button>
+        <div style={{ width: 36 }} />
       </header>
 
       {/* Error Banner */}
@@ -280,6 +285,14 @@ export default function MealPlanPage() {
       {/* Main Content */}
       {showSwiper && hasAvailableRecipes ? (
         <>
+          {/* Подсказка о свайпах */}
+          {showSwipeHint && (
+            <div className="swipe-hint">
+              <span>👈 Свайпни влево — не хочу</span>
+              <span>Свайпни вправо — хочу! 👉</span>
+            </div>
+          )}
+          
           {/* Swiper Mode */}
           <div className="cards-area">
             <div 

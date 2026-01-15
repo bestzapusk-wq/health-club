@@ -46,3 +46,17 @@
   border-radius: 100px;
 }
 
+.survey-remaining {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.survey-remaining svg {
+  opacity: 0.7;
+}
+

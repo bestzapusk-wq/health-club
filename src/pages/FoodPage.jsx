@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Plus, Utensils, Coffee, Sun, Moon, Apple, Eye } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus, Utensils, Coffee, Sun, Moon, Apple, Eye, Trash2, Edit3 } from 'lucide-react';
 import BottomNav from '../components/layout/BottomNav';
 import AddFoodModal from '../components/food/AddFoodModal';
 import FoodAnalysisModal from '../components/food/FoodAnalysisModal';
@@ -45,7 +45,8 @@ export default function FoodPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showAnalysisModal, setShowAnalysisModal] = useState(false);
   const [selectedMeal, setSelectedMeal] = useState(null);
-  const [lastSavedEntry, setLastSavedEntry] = useState(null); // Для передачи свежих данных в модалку
+  const [lastSavedEntry, setLastSavedEntry] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(null); // {mealId, entryIndex}
 
   const dateKey = getDateKey(currentDate);
   const todayMeals = meals[dateKey] || {};
@@ -120,6 +121,29 @@ export default function FoodPage() {
     return items;
   };
 
+  // Удаление записи
+  const handleDeleteEntry = (mealId, entryIndex) => {
+    const mealEntries = todayMeals[mealId] || [];
+    const updatedEntries = mealEntries.filter((_, idx) => idx !== entryIndex);
+    
+    const updated = {
+      ...meals,
+      [dateKey]: {
+        ...todayMeals,
+        [mealId]: updatedEntries
+      }
+    };
+    
+    // Если записей не осталось, удаляем ключ
+    if (updatedEntries.length === 0) {
+      delete updated[dateKey][mealId];
+    }
+    
+    setMeals(updated);
+    localStorage.setItem('food_tracker', JSON.stringify(updated));
+    setShowDeleteConfirm(null);
+  };
+
   return (
     <div className="food-page">
       <header className="food-header">
@@ -180,13 +204,22 @@ export default function FoodPage() {
                 </div>
 
                 {hasItems ? (
-                  <button 
-                    className="meal-view-btn"
-                    onClick={() => openAnalysisModal(meal)}
-                  >
-                    <Eye size={16} />
-                    <span>Разбор</span>
-                  </button>
+                  <div className="meal-actions">
+                    <button 
+                      className="meal-view-btn"
+                      onClick={() => openAnalysisModal(meal)}
+                    >
+                      <Eye size={16} />
+                      <span>Разбор</span>
+                    </button>
+                    <button 
+                      className="meal-delete-btn"
+                      onClick={() => setShowDeleteConfirm({ mealId: meal.id, entryIndex: 0 })}
+                      aria-label="Удалить"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
                 ) : (
                   <button 
                     className="meal-add-btn"
@@ -226,6 +259,31 @@ export default function FoodPage() {
       />
 
       <BottomNav />
+
+      {/* Модалка подтверждения удаления */}
+      {showDeleteConfirm && (
+        <div className="delete-modal-overlay" onClick={() => setShowDeleteConfirm(null)}>
+          <div className="delete-modal" onClick={e => e.stopPropagation()}>
+            <div className="delete-modal-icon">🗑️</div>
+            <h3>Удалить запись?</h3>
+            <p>Это действие нельзя отменить</p>
+            <div className="delete-modal-actions">
+              <button 
+                className="delete-modal-cancel"
+                onClick={() => setShowDeleteConfirm(null)}
+              >
+                Отмена
+              </button>
+              <button 
+                className="delete-modal-confirm"
+                onClick={() => handleDeleteEntry(showDeleteConfirm.mealId, showDeleteConfirm.entryIndex)}
+              >
+                Удалить
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

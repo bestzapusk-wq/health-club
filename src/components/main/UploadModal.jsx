@@ -360,6 +360,18 @@ export default function UploadModal({ isOpen, onClose, onSave, userId }) {
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title="Загрузка анализов">
       <div className="upload-content">
+        {/* Примеры нужных анализов */}
+        <div className="upload-examples">
+          <p className="upload-examples-title">📋 Какие анализы загрузить:</p>
+          <div className="upload-examples-list">
+            <span>Общий анализ крови</span>
+            <span>Биохимия крови</span>
+            <span>Гормоны (ТТГ, Т4)</span>
+            <span>Витамин D</span>
+            <span>Ферритин, железо</span>
+          </div>
+        </div>
+
         <div 
           className={`upload-zone ${isUploading ? 'disabled' : ''}`} 
           onClick={() => !isUploading && inputRef.current?.click()}
@@ -380,6 +392,11 @@ export default function UploadModal({ isOpen, onClose, onSave, userId }) {
             className="upload-input"
             disabled={isUploading}
           />
+        </div>
+        
+        {/* Гарантия безопасности */}
+        <div className="upload-security">
+          🔒 Ваши данные защищены и доступны только вам
         </div>
 
         {error && <p className="upload-error">{error}</p>}

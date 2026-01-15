@@ -328,3 +328,115 @@
 .plan-promo svg {
   color: rgba(255, 255, 255, 0.6);
 }
+
+/* Meal Actions */
+.meal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meal-delete-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FEE2E2;
+  border: none;
+  border-radius: 10px;
+  color: #EF4444;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.meal-delete-btn:hover {
+  background: #FECACA;
+}
+
+/* Delete Modal */
+.delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.delete-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 24px;
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.delete-modal-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.delete-modal h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1E293B;
+  margin-bottom: 8px;
+}
+
+.delete-modal p {
+  font-size: 14px;
+  color: #64748B;
+  margin-bottom: 24px;
+}
+
+.delete-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.delete-modal-cancel,
+.delete-modal-confirm {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-modal-cancel {
+  background: #F1F5F9;
+  border: none;
+  color: #64748B;
+}
+
+.delete-modal-cancel:hover {
+  background: #E2E8F0;
+}
+
+.delete-modal-confirm {
+  background: #EF4444;
+  border: none;
+  color: white;
+}
+
+.delete-modal-confirm:hover {
+  background: #DC2626;
+}

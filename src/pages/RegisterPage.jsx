@@ -27,6 +27,10 @@ export default function RegisterPage() {
   const [apiError, setApiError] = useState(null);
   const [isLoginMode, setIsLoginMode] = useState(false);
   const [loginData, setLoginData] = useState({ phone: '', password: '' });
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [resetPhone, setResetPhone] = useState('');
+  const [resetSent, setResetSent] = useState(false);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -416,7 +420,29 @@ export default function RegisterPage() {
             </div>
           )}
 
-          <Button type="submit" fullWidth size="lg" loading={isSubmitting} disabled={isSubmitting}>
+          {/* Согласие на обработку данных */}
+          <label className="terms-checkbox">
+            <input
+              type="checkbox"
+              checked={agreedToTerms}
+              onChange={(e) => setAgreedToTerms(e.target.checked)}
+            />
+            <span className="terms-text">
+              Я соглашаюсь с{' '}
+              <a href="#" onClick={(e) => { e.preventDefault(); alert('Политика конфиденциальности будет добавлена'); }}>
+                политикой конфиденциальности
+              </a>
+              {' '}и даю согласие на обработку персональных данных
+            </span>
+          </label>
+
+          <Button 
+            type="submit" 
+            fullWidth 
+            size="lg" 
+            loading={isSubmitting} 
+            disabled={isSubmitting || !agreedToTerms}
+          >
             {isSubmitting ? 'Создание аккаунта...' : 'Создать аккаунт'}
           </Button>
         </form>
@@ -475,6 +501,14 @@ export default function RegisterPage() {
 
               <button 
                 type="button" 
+                className="forgot-password-btn"
+                onClick={() => setShowResetPassword(true)}
+              >
+                Забыли пароль?
+              </button>
+
+              <button 
+                type="button" 
                 className="back-to-register"
                 onClick={() => { setIsLoginMode(false); setApiError(null); }}
               >
@@ -484,6 +518,54 @@ export default function RegisterPage() {
           )}
         </div>
       </div>
+
+      {/* Модалка восстановления пароля */}
+      {showResetPassword && (
+        <div className="reset-modal-overlay" onClick={() => setShowResetPassword(false)}>
+          <div className="reset-modal" onClick={e => e.stopPropagation()}>
+            <button className="reset-modal-close" onClick={() => setShowResetPassword(false)}>×</button>
+            
+            {resetSent ? (
+              <>
+                <div className="reset-icon">✅</div>
+                <h3>Запрос отправлен</h3>
+                <p>Мы свяжемся с вами в WhatsApp для восстановления доступа</p>
+                <Button fullWidth onClick={() => { setShowResetPassword(false); setResetSent(false); }}>
+                  Понятно
+                </Button>
+              </>
+            ) : (
+              <>
+                <div className="reset-icon">🔐</div>
+                <h3>Восстановление пароля</h3>
+                <p>Введите номер WhatsApp, с которым регистрировались</p>
+                
+                <div className="form-field">
+                  <input
+                    type="tel"
+                    className="form-input"
+                    value={resetPhone}
+                    onChange={(e) => setResetPhone(formatPhone(e.target.value))}
+                    placeholder="+7 (___) ___-__-__"
+                  />
+                </div>
+
+                <Button 
+                  fullWidth 
+                  disabled={!resetPhone || resetPhone.length < 16}
+                  onClick={() => setResetSent(true)}
+                >
+                  Восстановить доступ
+                </Button>
+                
+                <p className="reset-hint">
+                  Мы свяжемся с вами в WhatsApp для подтверждения личности
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

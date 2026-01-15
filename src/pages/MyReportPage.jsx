@@ -643,23 +643,27 @@ export default function MyReportPage() {
             {diagnostics.errorMessage || 'Для получения разбора нужны ваши данные'}
           </p>
 
-          {/* Чеклист готовности */}
+          {/* Чеклист готовности — понятный пользователю */}
           <div className="readiness-checklist">
             <div className={`checklist-item ${diagnostics.hasUser ? 'done' : ''}`}>
               {diagnostics.hasUser ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
-              <span>Авторизация</span>
+              <span>{diagnostics.hasUser ? '✓ Вы авторизованы' : 'Войдите в аккаунт'}</span>
             </div>
             <div className={`checklist-item ${diagnostics.hasSurvey ? 'done' : ''}`}>
               {diagnostics.hasSurvey ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
-              <span>Опросник пройден</span>
+              <span>{diagnostics.hasSurvey ? '✓ Опросник пройден' : 'Пройдите опросник (~5 мин)'}</span>
             </div>
             <div className={`checklist-item ${diagnostics.hasFiles ? 'done' : ''}`}>
               {diagnostics.hasFiles ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
-              <span>Анализы загружены</span>
+              <span>{diagnostics.hasFiles ? '✓ Анализы загружены' : 'Загрузите результаты анализов'}</span>
             </div>
             <div className={`checklist-item ${diagnostics.hasAnalysis && diagnostics.analysisStatus === 'completed' ? 'done' : ''}`}>
               {diagnostics.hasAnalysis && diagnostics.analysisStatus === 'completed' ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
-              <span>Разбор готов</span>
+              <span>
+                {diagnostics.hasAnalysis && diagnostics.analysisStatus === 'completed' 
+                  ? '✓ Разбор готов!' 
+                  : 'Нажмите "Получить результаты"'}
+              </span>
             </div>
           </div>
 

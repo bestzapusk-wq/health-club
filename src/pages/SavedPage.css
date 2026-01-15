@@ -1,0 +1,142 @@
+.saved-page {
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 100px;
+}
+
+.saved-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: white;
+}
+
+.saved-header .back-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.saved-header h1 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.saved-content {
+  padding: 16px;
+}
+
+/* Сетка рецептов */
+.saved-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.saved-page .recipe-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.saved-page .recipe-image {
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.saved-page .recipe-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.saved-page .save-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  background: var(--green);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  color: white;
+  transition: all 0.2s;
+}
+
+.saved-page .recipe-info {
+  padding: 12px;
+}
+
+.saved-page .recipe-info h4 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--text);
+}
+
+.saved-page .recipe-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Empty state */
+.saved-page .empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.saved-page .empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.saved-page .empty-state h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.saved-page .empty-state p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.browse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.browse-btn:active {
+  transform: scale(0.98);
+}
+

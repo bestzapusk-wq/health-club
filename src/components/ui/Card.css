@@ -1,0 +1,47 @@
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card-p-sm {
+  padding: 12px;
+}
+
+.card-p-md {
+  padding: 20px;
+}
+
+.card-p-lg {
+  padding: 28px;
+}
+
+.card-clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card-clickable:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.card-clickable:active {
+  transform: translateY(0);
+}
+
+.card-completed {
+  border: 2px solid var(--green);
+  background: linear-gradient(135deg, var(--green-bg), white);
+}
+
+.card-locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.card-selected {
+  border: 2px solid var(--accent);
+  background: linear-gradient(135deg, var(--accent-light), white);
+}
+

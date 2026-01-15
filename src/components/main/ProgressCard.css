@@ -1,0 +1,52 @@
+.progress-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.progress-card.all-done {
+  background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+  border: 2px solid var(--green);
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.progress-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.progress-card.all-done .progress-label {
+  color: var(--green-dark);
+}
+
+.progress-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.progress-bar {
+  height: 6px;
+  background: #E5E7EB;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--green));
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+.progress-card.all-done .progress-fill {
+  background: var(--green);
+}

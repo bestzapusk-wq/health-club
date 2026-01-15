@@ -1,0 +1,53 @@
+.success-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(145deg, #2D5A4A, #1E3D32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.success-content {
+  text-align: center;
+  color: white;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  animation: checkPop 0.5s ease forwards;
+}
+
+.success-icon svg {
+  width: 80px;
+  height: 80px;
+}
+
+.success-check {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: drawCheck 0.5s ease 0.3s forwards;
+}
+
+@keyframes drawCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.success-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  animation: fadeInUp 0.4s ease 0.4s backwards;
+}
+
+.success-text {
+  font-size: 16px;
+  opacity: 0.8;
+  animation: fadeInUp 0.4s ease 0.5s backwards;
+}
+

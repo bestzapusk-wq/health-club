@@ -1,0 +1,18 @@
+.survey-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.survey-content {
+  flex: 1;
+  padding: 16px;
+  padding-bottom: 40px;
+}
+
+.survey-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+

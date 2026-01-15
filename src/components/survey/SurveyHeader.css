@@ -1,0 +1,48 @@
+.survey-header {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  padding: 16px 16px 12px;
+  z-index: 100;
+}
+
+.survey-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.survey-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 8px;
+  margin-left: -8px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.survey-back:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.survey-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.survey-counter {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+

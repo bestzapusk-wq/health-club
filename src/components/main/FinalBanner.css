@@ -1,0 +1,139 @@
+.final-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Locked state */
+.final-banner.locked {
+  background: #F3F4F6;
+  border: 2px dashed #D1D5DB;
+}
+
+.final-banner.locked .banner-icon {
+  color: var(--muted);
+}
+
+.final-banner.locked .banner-content h3 {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.final-banner.locked .banner-content p {
+  color: #9CA3AF;
+  font-size: 13px;
+}
+
+/* Ready state - CTA */
+.final-banner.ready {
+  background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+  text-align: left;
+  width: 100%;
+}
+
+.final-banner.ready:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.5);
+}
+
+.final-banner.ready:active {
+  transform: scale(0.98);
+}
+
+.final-banner.ready .banner-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.final-banner.ready .banner-content h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.final-banner.ready .banner-content p {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.banner-arrow {
+  font-size: 24px;
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+/* Shine effect */
+.banner-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+/* Submitted state */
+.final-banner.submitted {
+  background: linear-gradient(135deg, #DCFCE7, #BBF7D0);
+  border: 2px solid var(--green);
+}
+
+.final-banner.submitted .banner-icon {
+  color: var(--green);
+}
+
+.final-banner.submitted .banner-icon.success {
+  width: 48px;
+  height: 48px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.final-banner.submitted .banner-content h3 {
+  color: var(--green-dark);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.final-banner.submitted .banner-content p {
+  color: #15803D;
+  font-size: 13px;
+}
+
+/* Content */
+.banner-content {
+  flex: 1;
+}
+
+.banner-content h3 {
+  margin: 0;
+}
+
+.banner-content p {
+  margin: 0;
+}
+

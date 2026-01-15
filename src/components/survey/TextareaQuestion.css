@@ -1,0 +1,29 @@
+.textarea-question {
+  width: 100%;
+}
+
+.textarea-field {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  line-height: 1.5;
+  border: 2px solid #22C55E;
+  border-radius: 16px;
+  background: white;
+  color: #1E293B;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.textarea-field:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(45, 90, 74, 0.1);
+}
+
+.textarea-field::placeholder {
+  color: var(--muted);
+}
+

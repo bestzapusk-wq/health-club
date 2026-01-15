@@ -1,0 +1,59 @@
+.gender-select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.gender-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gender-option:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.gender-option:active {
+  transform: scale(0.98);
+}
+
+.gender-selected {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent-light), white);
+  box-shadow: 0 0 0 3px rgba(45, 90, 74, 0.1);
+}
+
+.gender-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.gender-selected .gender-icon {
+  color: var(--accent);
+}
+
+.gender-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.gender-selected .gender-label {
+  color: var(--accent);
+}
+

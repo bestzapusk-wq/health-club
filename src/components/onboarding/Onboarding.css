@@ -1,0 +1,180 @@
+.onboarding-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.onboarding-container {
+  background: white;
+  border-radius: 32px;
+  padding: 32px 24px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progress */
+.onboarding-progress {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.progress-step {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+
+.progress-step.active {
+  background: #1E293B;
+  color: white;
+  transform: scale(1.1);
+}
+
+.progress-step.done {
+  background: #22C55E;
+  color: white;
+}
+
+/* Content */
+.onboarding-content {
+  margin-bottom: 32px;
+}
+
+.onboarding-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.onboarding-greeting {
+  font-size: 18px;
+  color: #64748B;
+  margin-bottom: 8px;
+}
+
+.onboarding-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1E293B;
+  margin: 0 0 8px;
+}
+
+.onboarding-subtitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #475569;
+  margin: 0 0 16px;
+}
+
+.onboarding-desc {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Actions */
+.onboarding-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.onboarding-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.onboarding-btn.primary {
+  color: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.onboarding-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.onboarding-btn.primary:active {
+  transform: scale(0.98);
+}
+
+.onboarding-btn.secondary {
+  background: transparent;
+  color: #64748B;
+}
+
+.onboarding-btn.secondary:hover {
+  background: #F1F5F9;
+}
+
+/* Dots */
+.onboarding-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.onboarding-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  transition: all 0.3s;
+}
+
+.onboarding-dots .dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: #1E293B;
+}
+

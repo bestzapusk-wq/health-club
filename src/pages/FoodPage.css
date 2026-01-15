@@ -1,0 +1,330 @@
+.food-page {
+  min-height: 100vh;
+  background: #F8F9FC;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+.food-header {
+  padding: 16px;
+  text-align: center;
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.food-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: #2C3E50;
+}
+
+/* Date Selector */
+.date-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: white;
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2C3E50;
+}
+
+.date-arrows {
+  display: flex;
+  gap: 6px;
+}
+
+.date-arrows button {
+  width: 36px;
+  height: 36px;
+  background: #F8F9FC;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64748B;
+  transition: all 0.2s;
+}
+
+.date-arrows button:hover {
+  background: #EEF2F7;
+  color: #4A90E2;
+}
+
+.date-arrows button:active {
+  transform: scale(0.95);
+}
+
+/* Food Navigation */
+.food-nav {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.food-nav-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  background: #F8F9FC;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.food-nav-btn.active {
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-color: #4A90E2;
+  color: white;
+  box-shadow: 0 4px 14px rgba(74, 144, 226, 0.35);
+}
+
+.food-nav-btn:not(.active):hover {
+  border-color: #4A90E2;
+  color: #4A90E2;
+  background: #EEF2FF;
+}
+
+/* Content */
+.food-content {
+  padding: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Meals List */
+.meals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.meal-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.2s;
+}
+
+.meal-card.has-items {
+  border-left: 4px solid #10B981;
+  background: linear-gradient(90deg, #D1FAE5 0%, white 100%);
+}
+
+.meal-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.meal-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.meal-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.meal-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.meal-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2C3E50;
+}
+
+.meal-summary {
+  font-size: 12px;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.meal-empty {
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.meal-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.meal-add-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.meal-add-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.meal-add-btn:active {
+  transform: scale(0.98);
+}
+
+/* Meal Actions (when has items) */
+.meal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meal-view-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+.meal-view-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+}
+
+.meal-view-btn:active {
+  transform: scale(0.98);
+}
+
+.meal-add-more-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.meal-add-more-btn:hover {
+  transform: scale(1.05);
+}
+
+.meal-add-more-btn:active {
+  transform: scale(0.95);
+}
+
+/* Make meal-info clickable when has items */
+.meal-card.has-items .meal-info {
+  cursor: pointer;
+}
+
+.meal-card.has-items .meal-info:hover .meal-name {
+  color: #4A90E2;
+}
+
+/* Plan Promo */
+.plan-promo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  box-shadow: 0 4px 14px rgba(74, 144, 226, 0.35);
+}
+
+.plan-promo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74, 144, 226, 0.45);
+}
+
+.plan-promo:active {
+  transform: scale(0.98);
+}
+
+.plan-promo-icon {
+  font-size: 36px;
+}
+
+.plan-promo-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.plan-promo-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+}
+
+.plan-promo-subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.plan-promo svg {
+  color: rgba(255, 255, 255, 0.6);
+}

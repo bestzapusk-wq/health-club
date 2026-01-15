@@ -3,6 +3,8 @@ import { Check } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import './HabitsTracker.css';
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 const getTodayKey = () => new Date().toISOString().split('T')[0];
 
 const formatDate = () => {
@@ -58,7 +60,7 @@ export default function HabitsTracker({ onReportChange }) {
           setSubmittedAt(data.submitted_at);
         }
       }
-    } catch (err) {
+    } catch {
       // Запись не найдена — это ок
     } finally {
       setLoading(false);

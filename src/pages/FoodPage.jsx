@@ -133,10 +133,10 @@ export default function FoodPage() {
           <span>{formatDate(currentDate)}</span>
         </div>
         <div className="date-arrows">
-          <button onClick={() => changeDate(-1)}>
+          <button onClick={() => changeDate(-1)} aria-label="Предыдущий день">
             <ChevronLeft size={22} />
           </button>
-          <button onClick={() => changeDate(1)}>
+          <button onClick={() => changeDate(1)} aria-label="Следующий день">
             <ChevronRight size={22} />
           </button>
         </div>

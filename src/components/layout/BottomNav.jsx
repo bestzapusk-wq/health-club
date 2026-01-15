@@ -18,7 +18,10 @@ export default function BottomNav() {
     <nav className="bottom-nav">
       {tabs.map(tab => {
         const Icon = tab.icon;
-        const isActive = location.pathname === tab.path || location.pathname.startsWith(tab.path + '/');
+        // Для главной "/" проверяем точное совпадение, иначе она будет активна везде
+        const isActive = tab.path === '/' 
+          ? location.pathname === '/' 
+          : location.pathname === tab.path || location.pathname.startsWith(tab.path + '/');
         return (
           <button
             key={tab.path}

@@ -128,13 +128,21 @@ export default function SurveyPage() {
               onChange={setTempAnswer}
               placeholder={currentQuestion.placeholder}
             />
-            <Button
-              fullWidth
-              disabled={!tempAnswer || tempAnswer.trim().length === 0}
-              onClick={() => handleAnswer(tempAnswer)}
-            >
-              Далее
-            </Button>
+            <div className="textarea-buttons">
+              <Button
+                fullWidth
+                disabled={!tempAnswer || tempAnswer.trim().length === 0}
+                onClick={() => handleAnswer(tempAnswer)}
+              >
+                Далее
+              </Button>
+              <button 
+                className="skip-btn"
+                onClick={() => handleAnswer('Нет / Не знаю')}
+              >
+                Пропустить
+              </button>
+            </div>
           </>
         );
 

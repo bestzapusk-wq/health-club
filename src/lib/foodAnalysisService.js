@@ -43,7 +43,7 @@ export const uploadFoodPhoto = async (imageFile, mealType = 'meal') => {
     console.log('Uploading photo to Supabase Storage:', fileName);
     
     // Загружаем в Storage
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from(STORAGE_BUCKET)
       .upload(fileName, imageFile, {
         cacheControl: '3600',

@@ -707,6 +707,24 @@
   color: #fff;
 }
 
+/* Skeleton для загрузки streak */
+.streak-day-circle.skeleton {
+  background: linear-gradient(
+    90deg,
+    #F1F5F9 0px,
+    #E2E8F0 40px,
+    #F1F5F9 80px
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  color: transparent;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
 .streak-success-msg {
   margin-top: 12px;
   padding: 10px;

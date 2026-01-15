@@ -101,7 +101,7 @@ export default function VitaminsPage() {
   return (
     <div className="vitamins-page">
       <header className="vitamins-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
+        <button className="back-btn" onClick={() => navigate(-1)} aria-label="Назад">
           <ArrowLeft size={22} />
         </button>
         <h1>Напоминания о витаминах</h1>

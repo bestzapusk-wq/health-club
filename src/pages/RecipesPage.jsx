@@ -50,7 +50,7 @@ export default function RecipesPage() {
   return (
     <div className="recipes-page">
       <header className="recipes-header">
-        <button className="back-btn" onClick={() => navigate('/food')}>
+        <button className="back-btn" onClick={() => navigate('/food')} aria-label="Назад к еде">
           <ArrowLeft size={24} />
         </button>
         <h1>Рецепты</h1>

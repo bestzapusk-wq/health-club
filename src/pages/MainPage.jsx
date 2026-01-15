@@ -25,6 +25,7 @@ export default function MainPage() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [uploadedFilesCount, setUploadedFilesCount] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [generateError, setGenerateError] = useState(null);
   
   // Streak state
@@ -40,6 +41,7 @@ export default function MainPage() {
   });
 
   // Check if results are ready (default to true for demo)
+  // eslint-disable-next-line no-unused-vars
   const resultsReady = localStorage.getItem('results_ready') !== 'false';
 
   useEffect(() => {
@@ -246,11 +248,11 @@ export default function MainPage() {
 
               <div className="streak-days">
                 {streakLoading ? (
-                  // Placeholder при загрузке
+                  // Skeleton при загрузке
                   [1,2,3,4,5,6,7].map(num => (
                     <div key={num} className="streak-day">
-                      <div className="streak-day-circle">
-                        {num === 7 ? <Gift size={14} /> : <span>{num}</span>}
+                      <div className="streak-day-circle skeleton">
+                        <span>&nbsp;</span>
                       </div>
                     </div>
                   ))
@@ -300,7 +302,7 @@ export default function MainPage() {
         {showSuccessModal && (
           <div className="success-modal-overlay" onClick={() => setShowSuccessModal(false)}>
             <div className="success-modal" onClick={e => e.stopPropagation()}>
-              <button className="success-modal-close" onClick={() => setShowSuccessModal(false)}>
+              <button className="success-modal-close" onClick={() => setShowSuccessModal(false)} aria-label="Закрыть">
                 <X size={24} />
               </button>
               

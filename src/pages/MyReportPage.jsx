@@ -6,7 +6,7 @@ import {
   Upload, FileText, AlertCircle, CheckCircle
 } from 'lucide-react';
 import BottomNav from '../components/layout/BottomNav';
-import { getAnalysisResult } from '../lib/analysisService';
+// import { getAnalysisResult } from '../lib/analysisService';
 import { supabase } from '../lib/supabase';
 import './MyReportPage.css';
 
@@ -751,7 +751,7 @@ export default function MyReportPage() {
       {/* === HEADER === */}
       <header className="report-header-new">
         <div className="header-top">
-          <button className="back-btn" onClick={() => navigate('/')}>
+          <button className="back-btn" onClick={() => navigate('/')} aria-label="На главную">
             <ArrowLeft size={22} />
           </button>
           <span className="header-title">Мой разбор</span>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Check, Lock, Gift, Egg, Salad, Moon, Apple, Footprints, Video, Sparkles, Radio } from 'lucide-react';
 import './DailyTasks.css';
 

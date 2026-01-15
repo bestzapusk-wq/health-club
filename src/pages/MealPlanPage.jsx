@@ -233,15 +233,15 @@ export default function MealPlanPage() {
     <div className="meal-plan-page">
       {/* Header */}
       <header className="meal-plan-header">
-        <button className="back-btn" onClick={() => navigate('/food')}>
+        <button className="back-btn" onClick={() => navigate('/food')} aria-label="Назад">
           <ArrowLeft size={22} />
         </button>
         <div className="header-center">
-          <button className="day-arrow" onClick={() => setDay(Math.max(1, day - 1))}>
+          <button className="day-arrow" onClick={() => setDay(Math.max(1, day - 1))} aria-label="Предыдущий день">
             <ChevronLeft size={20} />
           </button>
           <span className="header-title">День {day}, {dateStr}</span>
-          <button className="day-arrow" onClick={() => setDay(day + 1)}>
+          <button className="day-arrow" onClick={() => setDay(day + 1)} aria-label="Следующий день">
             <ChevronRight size={20} />
           </button>
         </div>

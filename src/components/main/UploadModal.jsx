@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
 import Modal from '../ui/Modal';
 import Button from '../ui/Button';
 import { formatFileSize } from '../../utils/formatters';

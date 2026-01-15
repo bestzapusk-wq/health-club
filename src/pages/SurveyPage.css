@@ -16,3 +16,25 @@
   margin: 0 auto;
 }
 
+/* Textarea buttons */
+.textarea-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skip-btn {
+  background: none;
+  border: none;
+  color: #64748B;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.skip-btn:hover {
+  color: #4A90E2;
+}
+

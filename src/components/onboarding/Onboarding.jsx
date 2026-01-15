@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Sparkles, ClipboardList, FileUp, ArrowRight, Check } from 'lucide-react';
 import './Onboarding.css';
 

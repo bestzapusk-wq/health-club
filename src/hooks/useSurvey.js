@@ -3,7 +3,6 @@ import { filterQuestionsByGender } from '../data/surveyQuestions';
 import { supabase } from '../lib/supabase';
 
 export function useSurvey() {
-  const [userId, setUserId] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -12,13 +11,17 @@ export function useSurvey() {
   
   // Используем ref для userId чтобы он был доступен в callback
   const userIdRef = useRef(null);
+  const initializedRef = useRef(false);
 
   useEffect(() => {
+    // Предотвращаем повторную инициализацию
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+
     // Получаем user ID из сессии или localStorage
     const getUserId = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user?.id) {
-        setUserId(session.user.id);
         userIdRef.current = session.user.id;
         console.log('✅ Got user ID from session:', session.user.id);
       } else {
@@ -26,7 +29,6 @@ export function useSurvey() {
         const userData = localStorage.getItem('user_data');
         if (userData) {
           const parsed = JSON.parse(userData);
-          setUserId(parsed.id);
           userIdRef.current = parsed.id;
           console.log('✅ Got user ID from localStorage:', parsed.id);
         }

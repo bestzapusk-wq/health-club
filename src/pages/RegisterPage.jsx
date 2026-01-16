@@ -429,7 +429,7 @@ export default function RegisterPage() {
             />
             <span className="terms-text">
               Я соглашаюсь с{' '}
-              <a href="#" onClick={(e) => { e.preventDefault(); alert('Политика конфиденциальности будет добавлена'); }}>
+              <a href="/privacy" target="_blank">
                 политикой конфиденциальности
               </a>
               {' '}и даю согласие на обработку персональных данных

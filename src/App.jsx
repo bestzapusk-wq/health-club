@@ -21,6 +21,7 @@ const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const CoursePage = lazy(() => import('./pages/CoursePage'));
 const VitaminsPage = lazy(() => import('./pages/VitaminsPage'));
 const ProgramDetailPage = lazy(() => import('./pages/ProgramDetailPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 
 // Компонент загрузки
 function PageLoader() {
@@ -64,6 +65,7 @@ function App() {
           <Route path="/course/:id" element={<CoursePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/vitamins" element={<VitaminsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

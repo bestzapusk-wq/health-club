@@ -48,7 +48,7 @@ export default function ProgramDetailPage() {
   }
 
   const handleWhatsApp = () => {
-    const phone = '77001234567'; // Замените на реальный номер
+    const phone = '77472370208';
     const message = encodeURIComponent(program.whatsapp_message);
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   };

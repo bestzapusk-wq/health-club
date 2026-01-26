@@ -1,0 +1,70 @@
+.changes-overview {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.changes-overview h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin: 0 0 4px;
+}
+
+.changes-subtitle {
+  font-size: 13px;
+  color: #6B7280;
+  margin: 0 0 12px;
+}
+
+.changes-section {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.changes-section:last-child {
+  margin-bottom: 0;
+}
+
+.changes-section.improved {
+  background: #ECFDF5;
+}
+
+.changes-section.worsened {
+  background: #FEF3C7;
+}
+
+.changes-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.changes-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.changes-content strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.changes-section.improved .changes-content strong {
+  color: #059669;
+}
+
+.changes-section.worsened .changes-content strong {
+  color: #D97706;
+}
+
+.changes-content span:last-child {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.4;
+}

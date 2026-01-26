@@ -1,0 +1,124 @@
+.end-fasting-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.end-fasting-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 28px 24px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.end-fasting-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #F1F5F9;
+  border-radius: 50%;
+  color: #64748B;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.end-fasting-close:hover {
+  background: #E2E8F0;
+  color: #1E293B;
+}
+
+.end-fasting-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.end-fasting-modal h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 16px;
+}
+
+.end-fasting-stats {
+  background: #F8FAFC;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row.highlight {
+  background: #FEF3C7;
+  margin: 8px -16px -16px;
+  padding: 12px 16px;
+  border-radius: 0 0 12px 12px;
+  border-bottom: none;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #64748B;
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.stat-row.highlight .stat-value {
+  color: #D97706;
+  font-size: 16px;
+}
+
+.end-fasting-note {
+  font-size: 13px;
+  color: #64748B;
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+
+.end-fasting-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.end-fasting-actions button {
+  flex: 1;
+}

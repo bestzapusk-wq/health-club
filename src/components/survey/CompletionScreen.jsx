@@ -14,7 +14,7 @@ export default function CompletionScreen() {
         </div>
         <h1 className="completion-title">Опросник пройден!</h1>
         <p className="completion-text">
-          Отлично! Теперь загрузите ваши анализы, чтобы мы могли подготовить персональный разбор.
+          Отлично! Теперь загрузите ваши анализы, чтобы мы могли подготовить персональные рекомендации.
         </p>
         <Button fullWidth size="lg" onClick={() => navigate('/')}>
           <ChevronLeft size={20} />

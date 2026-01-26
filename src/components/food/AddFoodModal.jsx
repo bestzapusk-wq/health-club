@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { X, Camera, Image, Type, Send, Trash2, Loader2 } from 'lucide-react';
 import { analyzeFood, transformAnalysisForUI, uploadFoodPhoto } from '../../lib/foodAnalysisService';
+import { supabase } from '../../lib/supabase';
 import './AddFoodModal.css';
 
 export default function AddFoodModal({ isOpen, onClose, onSave, mealName, mealColor, mealType = 'lunch' }) {
@@ -87,6 +88,32 @@ export default function AddFoodModal({ isOpen, onClose, onSave, mealName, mealCo
         createdAt: new Date().toISOString(),
         analysis: analysisResult // Результат анализа от AI
       };
+
+      // Сохраняем в Supabase food_logs
+      try {
+        const userData = localStorage.getItem('user_data');
+        const userId = userData ? JSON.parse(userData).id : null;
+        
+        if (userId) {
+          const { error: saveError } = await supabase
+            .from('food_logs')
+            .insert({
+              user_id: userId,
+              meal_type: mealType,
+              photo_url: photoUrl || null,
+              analysis: analysisResult,
+              score: analysisResult?.score || null
+            });
+          
+          if (saveError) {
+            console.error('Failed to save food log:', saveError);
+          } else {
+            console.log('✅ Food log saved to Supabase');
+          }
+        }
+      } catch (err) {
+        console.error('Error saving food log:', err);
+      }
 
       onSave(foodEntry);
       handleClose();

@@ -1,0 +1,157 @@
+/* ========================================
+   Fasting Widget - Компактная плашка
+   ======================================== */
+
+.fasting-card-compact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 18px;
+  background: white;
+  border: 2px solid #E2E8F0;
+  border-radius: 18px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: all 0.2s;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.fasting-card-compact:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.fasting-card-compact:active {
+  transform: scale(0.99);
+}
+
+/* Состояние: настройка */
+.fasting-card-compact.setup {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+  border-color: #F97316;
+}
+
+.fasting-card-compact.setup:hover {
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.15);
+}
+
+/* Состояние: голодание */
+.fasting-card-compact.fasting {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 100%);
+  border-color: #F97316;
+}
+
+.fasting-card-compact.fasting:hover {
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.2);
+}
+
+/* Состояние: окно питания */
+.fasting-card-compact.eating {
+  background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+  border-color: #22C55E;
+}
+
+.fasting-card-compact.eating:hover {
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.2);
+}
+
+/* Иконка */
+.fasting-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fasting-card-icon.setup {
+  background: white;
+  font-size: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.fasting-card-icon.fasting {
+  background: #F97316;
+  color: white;
+}
+
+.fasting-card-icon.eating {
+  background: #22C55E;
+  color: white;
+}
+
+/* Контент */
+.fasting-card-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fasting-card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.fasting-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+.fasting-card-time {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1E293B;
+  font-variant-numeric: tabular-nums;
+}
+
+.fasting-card-subtitle {
+  font-size: 13px;
+  color: #64748B;
+}
+
+/* Прогресс-бар */
+.fasting-card-progress {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.fasting-card-progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+.fasting-card-compact.fasting .fasting-card-progress-bar {
+  background: linear-gradient(90deg, #F97316 0%, #FB923C 100%);
+}
+
+.fasting-card-compact.eating .fasting-card-progress-bar {
+  background: linear-gradient(90deg, #22C55E 0%, #4ADE80 100%);
+}
+
+/* Стрелка */
+.fasting-card-arrow {
+  color: #94A3B8;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.fasting-card-compact:hover .fasting-card-arrow {
+  transform: translateX(2px);
+  color: #64748B;
+}
+
+.fasting-card-compact.setup .fasting-card-arrow {
+  color: #F97316;
+}

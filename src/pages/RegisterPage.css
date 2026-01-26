@@ -389,3 +389,128 @@
   color: #94A3B8;
   margin-top: 16px;
 }
+
+/* Simple Login Form */
+.login-form-simple {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-form-simple .form-field {
+  text-align: left;
+}
+
+.register-hint {
+  text-align: center;
+  font-size: 13px;
+  color: #94A3B8;
+  margin-top: 24px;
+}
+
+/* OAuth Buttons Container */
+.oauth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+/* OAuth-style Button */
+.oauth-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  background: #FFFFFF;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2C3E50;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.oauth-button:hover:not(:disabled) {
+  background: #F8F9FC;
+  border-color: #D1D5DB;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.oauth-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.oauth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.oauth-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Apple Button */
+.oauth-button.apple-button {
+  background: #000000;
+  border-color: #000000;
+  color: #FFFFFF;
+}
+
+.oauth-button.apple-button:hover:not(:disabled) {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+}
+
+/* Google Button */
+.oauth-button.google-button {
+  background: #FFFFFF;
+  border-color: #E5E7EB;
+  color: #2C3E50;
+}
+
+.oauth-button.google-button:hover:not(:disabled) {
+  background: #F8F9FC;
+  border-color: #D1D5DB;
+}
+
+.oauth-loading {
+  color: inherit;
+}
+
+.test-login-btn {
+  border-color: #8B5CF6;
+  background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+}
+
+.test-login-btn .oauth-icon {
+  color: #8B5CF6;
+}
+
+.test-login-btn:hover {
+  border-color: #7C3AED;
+  background: linear-gradient(135deg, #EDE9FE 0%, #DDD6FE 100%);
+}
+
+/* Test Login Modal */
+.test-login-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.test-login-modal .form-field {
+  text-align: left;
+}
+
+.test-login-modal .api-error {
+  margin-bottom: 0;
+}

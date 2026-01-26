@@ -26,7 +26,7 @@ export default function FinalBanner({ canSubmit, submitted, onSubmit }) {
         </div>
         <div className="banner-content">
           <h3>Попасть на эфир</h3>
-          <p>и получить разбор здоровья</p>
+          <p>и получить рекомендации по здоровью</p>
         </div>
         <div className="banner-arrow">→</div>
         <div className="banner-shine" />
@@ -41,7 +41,7 @@ export default function FinalBanner({ canSubmit, submitted, onSubmit }) {
         <Lock size={24} />
       </div>
       <div className="banner-content">
-        <h3>Эфир с разбором здоровья</h3>
+        <h3>Эфир про здоровье</h3>
         <p>Пройдите оба шага выше</p>
       </div>
     </div>

@@ -1,0 +1,406 @@
+/* LearningPage.css */
+
+.learning-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.learning-content {
+  padding-bottom: 100px;
+}
+
+/* ========================================
+   ШАПКА
+======================================== */
+.learning-header {
+  padding: 48px 20px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.learning-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.learning-header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.header-subtitle {
+  margin: 8px 0 0;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+/* ========================================
+   КАТЕГОРИИ
+======================================== */
+.categories-section {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  overflow-x: auto;
+  margin-top: -20px;
+  position: relative;
+  z-index: 10;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.categories-section::-webkit-scrollbar {
+  display: none;
+}
+
+.category-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.category-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.category-chip:active {
+  transform: scale(0.98);
+}
+
+.category-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cat-color);
+  color: white;
+}
+
+.category-chip span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ========================================
+   КАРТОЧКА ПРОГРЕССА
+======================================== */
+.total-progress-card {
+  margin: 12px 16px 24px;
+  padding: 16px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 12px 16px;
+}
+
+.progress-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trophy-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.lessons-done {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.progress-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: #888;
+  display: block;
+}
+
+.progress-percentage {
+  font-size: 28px;
+  font-weight: 800;
+  color: #667eea;
+  line-height: 1;
+}
+
+.progress-bar-full {
+  grid-column: 1 / -1;
+  height: 6px;
+  background: #e8ecf0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* ========================================
+   ЗАГОЛОВОК СЕКЦИИ
+======================================== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  margin-bottom: 12px;
+}
+
+.section-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.modules-count {
+  font-size: 13px;
+  color: #888;
+  background: #e8ecf0;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ========================================
+   КАРТОЧКИ МОДУЛЕЙ - НОВЫЙ ДИЗАЙН
+======================================== */
+.modules-list {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.module-card-new {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.module-card-new:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.module-card-new:active {
+  transform: translateY(-1px);
+}
+
+.module-card-new.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.module-card-new.locked:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.module-card-new.completed {
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+}
+
+/* Цветная полоса слева */
+.module-accent-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--accent);
+  border-radius: 16px 0 0 16px;
+}
+
+.module-body {
+  padding: 16px 16px 14px 20px;
+}
+
+.module-top-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.module-icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--accent) 12%, white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.module-icon-circle span {
+  font-size: 24px;
+}
+
+.module-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.module-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 4px;
+}
+
+.module-desc {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.module-arrow {
+  color: #ccc;
+  flex-shrink: 0;
+  margin-top: 12px;
+  transition: color 0.2s;
+}
+
+.module-card-new:hover .module-arrow {
+  color: var(--accent);
+}
+
+.module-check {
+  color: #4caf50;
+  flex-shrink: 0;
+  margin-top: 12px;
+}
+
+.module-lock {
+  color: #999;
+  flex-shrink: 0;
+  margin-top: 14px;
+}
+
+.module-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.module-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #888;
+}
+
+.stat-item svg {
+  opacity: 0.7;
+}
+
+.completed-stat {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.completed-stat svg {
+  opacity: 1;
+}
+
+.module-mini-progress {
+  width: 60px;
+  height: 4px;
+  background: #e8ecf0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.mini-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+/* ========================================
+   АДАПТИВ
+======================================== */
+@media (min-width: 768px) {
+  .learning-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .modules-list {
+    gap: 16px;
+  }
+  
+  .module-body {
+    padding: 20px 20px 16px 24px;
+  }
+}

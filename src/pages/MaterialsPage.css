@@ -8,6 +8,30 @@
   padding: 0;
 }
 
+/* === ЗАГОЛОВОК СТРАНИЦЫ === */
+.materials-header {
+  padding: 24px 20px 16px;
+  background: white;
+}
+
+.materials-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+}
+
+.materials-header p {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0;
+}
+
+/* Верхняя секция материалов */
+.materials-top {
+  padding-top: 16px !important;
+}
+
 /* ========================================
    ПРОДАЮЩИЙ БЛОК: ПРОГРАММЫ
    ======================================== */
@@ -222,6 +246,21 @@
   transform: scale(0.98);
 }
 
+/* === СЕТКА ПРОГРАММ (полная) === */
+.programs-grid-section {
+  padding: 0 16px;
+}
+
+.programs-grid-full {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.programs-grid-full .program-card-clean {
+  width: 100%;
+}
+
 /* === ЧИСТЫЕ КАРТОЧКИ ПРОГРАММ === */
 .program-card-clean {
   flex-shrink: 0;
@@ -342,31 +381,17 @@
   background: #374151;
 }
 
-/* Индикатор скролла */
-.scroll-hint {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin: 24px auto 0;
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 12px 20px;
-  transition: all 0.2s;
-  animation: bounce 2s infinite;
+/* Программы внизу страницы */
+.programs-bottom {
+  margin-top: 8px;
+  padding-bottom: 32px;
 }
 
-.scroll-hint:hover {
+.programs-bottom .programs-header h2 {
+  font-size: 20px;
+  font-weight: 700;
   color: white;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
+  margin: 0 0 4px;
 }
 
 /* ========================================
@@ -651,4 +676,68 @@
   background: linear-gradient(135deg, #10B981 0%, #059669 100%);
   cursor: default;
   box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+/* ========================================
+   НОВЫЕ СТИЛИ ДЛЯ ЭФИРОВ
+   ======================================== */
+
+/* Плейсхолдер для видео без записи */
+.thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+/* Бейдж "Скоро" */
+.coming-soon-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fbbf24;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Индикатор материалов */
+.has-materials {
+  display: block;
+  font-size: 11px;
+  color: #4A90E2;
+  margin-top: 4px;
+}
+
+/* Кнопка фильтра со значком */
+.filters button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Грид для фильтрованного контента */
+.filtered-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+}
+
+.filtered-grid .video-card {
+  width: calc(50% - 7px);
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .filtered-grid .video-card {
+    width: 100%;
+  }
 }

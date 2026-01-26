@@ -1,0 +1,84 @@
+.audio-post {
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  border-radius: 16px;
+  padding: 20px;
+  margin: -16px;
+}
+
+/* Waveform */
+.audio-waveform {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 60px;
+  gap: 2px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.waveform-bar {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.waveform-bar.played {
+  background: white;
+}
+
+/* Controls */
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.audio-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audio-btn.play {
+  width: 52px;
+  height: 52px;
+  background: white;
+  color: #667EEA;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.audio-btn.skip {
+  opacity: 0.8;
+}
+
+.audio-time {
+  flex: 1;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  font-variant-numeric: tabular-nums;
+}
+
+.audio-speed {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.audio-caption {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 16px 0 0;
+  line-height: 1.5;
+}

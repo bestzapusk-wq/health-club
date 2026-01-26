@@ -1,12 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Home, FileText, Utensils, BookOpen, User } from 'lucide-react';
+import { Home, FileText, Utensils, User, CalendarCheck } from 'lucide-react';
 import './BottomNav.css';
 
 const tabs = [
   { path: '/', icon: Home, label: 'Главная' },
-  { path: '/report', icon: FileText, label: 'Разбор' },
+  { path: '/report', icon: FileText, label: 'Здоровье' },
+  { path: '/learning', icon: CalendarCheck, label: 'Мой план', primary: true },
   { path: '/food', icon: Utensils, label: 'Еда' },
-  { path: '/materials', icon: BookOpen, label: 'Материалы' },
   { path: '/profile', icon: User, label: 'Профиль' }
 ];
 
@@ -25,10 +25,12 @@ export default function BottomNav() {
         return (
           <button
             key={tab.path}
-            className={`nav-item ${isActive ? 'active' : ''}`}
+            className={`nav-item ${isActive ? 'active' : ''} ${tab.primary ? 'primary' : ''}`}
             onClick={() => navigate(tab.path)}
           >
-            <Icon className="nav-icon" size={22} />
+            <div className={`nav-icon-wrap ${tab.primary ? 'primary-wrap' : ''}`}>
+              <Icon className="nav-icon" size={tab.primary ? 24 : 22} />
+            </div>
             <span className="nav-label">{tab.label}</span>
           </button>
         );

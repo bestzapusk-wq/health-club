@@ -9,50 +9,38 @@ export function useSurvey() {
   const [showIntro, setShowIntro] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   
-  // Используем ref для userId чтобы он был доступен в callback
   const userIdRef = useRef(null);
   const initializedRef = useRef(false);
 
   useEffect(() => {
-    // Предотвращаем повторную инициализацию
     if (initializedRef.current) return;
     initializedRef.current = true;
 
-    // Получаем user ID из сессии или localStorage
-    const getUserId = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user?.id) {
-        userIdRef.current = session.user.id;
-        console.log('✅ Got user ID from session:', session.user.id);
-      } else {
-        // Fallback: из localStorage
-        const userData = localStorage.getItem('user_data');
-        if (userData) {
-          const parsed = JSON.parse(userData);
-          userIdRef.current = parsed.id;
-          console.log('✅ Got user ID from localStorage:', parsed.id);
-        }
-      }
-    };
-    getUserId();
+    // Получаем user ID из localStorage
+    const userData = localStorage.getItem('user_data');
+    if (userData) {
+      const parsed = JSON.parse(userData);
+      userIdRef.current = parsed.id;
+      console.log('✅ Got user ID:', parsed.id);
+    }
 
+    // Фильтруем вопросы по полу (если известен)
     const gender = localStorage.getItem('user_gender') || 'female';
     const filteredQuestions = filterQuestionsByGender(gender);
     setQuestions(filteredQuestions);
 
-    // Check if current question has intro
+    // Показываем intro если есть
     if (filteredQuestions.length > 0 && filteredQuestions[0].sectionIntro) {
       setShowIntro(true);
     }
 
-    // Load saved progress
+    // Загружаем сохранённый прогресс
     const savedProgress = localStorage.getItem('survey_progress');
     if (savedProgress) {
       const { index, answers: savedAnswers } = JSON.parse(savedProgress);
       setCurrentIndex(index);
       setAnswers(savedAnswers);
       
-      // Check if should show intro for current question
       if (filteredQuestions[index]?.sectionIntro && !savedAnswers[filteredQuestions[index].id]) {
         setShowIntro(true);
       } else {
@@ -72,49 +60,67 @@ export function useSurvey() {
     }));
   }, []);
 
-  // Сохранение результатов в Supabase - определяем ПЕРЕД handleAnswer
+  // Сохранение в Supabase
   const saveSurveyToSupabase = useCallback(async (allAnswers) => {
-    const currentUserId = userIdRef.current;
+    const userId = userIdRef.current;
     
-    if (!currentUserId) {
-      console.error('❌ No user ID for saving survey');
+    if (!userId) {
+      console.log('⚠️ No user ID, saving only to localStorage');
+      localStorage.setItem('survey_answers', JSON.stringify(allAnswers));
       return;
     }
 
-    console.log('📤 Saving survey to Supabase...');
-    console.log('User ID:', currentUserId);
-    console.log('Answers count:', Object.keys(allAnswers).length);
+    console.log('📤 Saving survey to Supabase for user:', userId);
 
     try {
-      // Сохраняем все ответы в одну запись
-      const { data, error: responsesError } = await supabase
+      // Сохраняем ответы
+      const { error: responsesError } = await supabase
         .from('survey_responses')
         .insert({
-          user_id: currentUserId,
+          user_id: userId,
           answers: allAnswers,
           completed_at: new Date().toISOString(),
-        })
-        .select();
+        });
 
       if (responsesError) {
         console.error('❌ Error saving responses:', responsesError);
       } else {
-        console.log('✅ Survey responses saved:', data);
+        console.log('✅ Survey responses saved');
       }
 
       // Обновляем профиль: survey_completed = true
+      // А также сохраняем базовые данные из опросника
+      const basicData = {
+        survey_completed: true
+      };
+
+      // Если в ответах есть базовые данные — сохраняем
+      if (allAnswers.basic1) basicData.gender = allAnswers.basic1;
+      if (allAnswers.basic2) basicData.age = parseInt(allAnswers.basic2);
+      if (allAnswers.basic3) basicData.height_cm = parseInt(allAnswers.basic3);
+      if (allAnswers.basic4) basicData.weight_kg = parseInt(allAnswers.basic4);
+
       const { error: profileError } = await supabase
         .from('profiles')
-        .update({ 
-          survey_completed: true,
-          survey_completed_at: new Date().toISOString()
-        })
-        .eq('id', currentUserId);
+        .update(basicData)
+        .eq('id', userId);
 
       if (profileError) {
         console.error('❌ Error updating profile:', profileError);
       } else {
-        console.log('✅ Profile updated: survey_completed = true');
+        console.log('✅ Profile updated');
+        
+        // Обновляем localStorage
+        const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+        if (allAnswers.basic1) {
+          userData.gender = allAnswers.basic1;
+          localStorage.setItem('user_gender', allAnswers.basic1);
+        }
+        if (allAnswers.basic2) userData.age = parseInt(allAnswers.basic2);
+        if (allAnswers.basic3) userData.height = parseInt(allAnswers.basic3);
+        if (allAnswers.basic4) userData.weight = parseInt(allAnswers.basic4);
+        userData.surveyCompleted = true;
+        localStorage.setItem('user_data', JSON.stringify(userData));
       }
 
     } catch (err) {
@@ -127,21 +133,34 @@ export function useSurvey() {
     const newAnswers = { ...answers, [questionId]: answer };
     setAnswers(newAnswers);
 
-    // Move to next question
+    // Если вопрос имеет saveTo — сохраняем в user_data локально
+    if (currentQuestion.saveTo) {
+      const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+      userData[currentQuestion.saveTo] = answer;
+      localStorage.setItem('user_data', JSON.stringify(userData));
+      
+      // Если это пол — обновляем фильтрацию
+      if (currentQuestion.saveTo === 'gender') {
+        localStorage.setItem('user_gender', answer);
+        const newFilteredQuestions = filterQuestionsByGender(answer);
+        setQuestions(newFilteredQuestions);
+      }
+    }
+
+    // Переходим к следующему вопросу
     if (currentIndex < questions.length - 1) {
       const nextIndex = currentIndex + 1;
       setCurrentIndex(nextIndex);
       saveProgress(nextIndex, newAnswers);
 
-      // Check if next question has intro
       if (questions[nextIndex]?.sectionIntro) {
         setShowIntro(true);
       }
     } else {
-      // Survey complete
+      // Опросник завершён
       setIsComplete(true);
       
-      // Format and save results
+      // Формируем результаты
       const results = {
         symptoms: [],
         health: []
@@ -183,8 +202,6 @@ export function useSurvey() {
       const prevIndex = currentIndex - 1;
       setCurrentIndex(prevIndex);
       saveProgress(prevIndex, answers);
-
-      // Don't show intro when going back
       setShowIntro(false);
     }
   }, [showIntro, currentIndex, answers, saveProgress]);

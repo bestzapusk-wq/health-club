@@ -48,15 +48,449 @@
   to { transform: rotate(360deg); }
 }
 
-/* Чеклист готовности */
-.readiness-checklist {
+/* ========================================
+   SETUP CONTENT (когда нет данных)
+   ======================================== */
+
+.report-setup-content {
+  padding: 24px 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   PROGRESS TRACKER - новый дизайн
+   ======================================== */
+
+.progress-tracker {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.progress-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0;
+}
+
+.progress-step-label {
+  font-size: 13px;
+  color: #64748B;
+  background: #F1F5F9;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+/* Шаги прогресса */
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.progress-step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.progress-step-item .step-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F1F5F9;
+  color: #94A3B8;
+  transition: all 0.3s ease;
+}
+
+.progress-step-item.active .step-circle {
+  background: #1E293B;
+  color: white;
+}
+
+.progress-step-item.done .step-circle {
+  background: #22C55E;
+  color: white;
+}
+
+.progress-step-item .step-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #94A3B8;
+}
+
+.progress-step-item.active .step-label,
+.progress-step-item.done .step-label {
+  color: #1E293B;
+}
+
+.progress-line {
+  flex: 0.5;
+  height: 2px;
+  background: #E2E8F0;
+  margin: 0 8px;
+  margin-bottom: 28px;
+}
+
+/* Кнопка следующего шага */
+.next-step-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 24px;
+  background: white;
+  border: 2px solid #22C55E;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #22C55E;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.next-step-btn:active {
+  background: #22C55E;
+  color: white;
+  transform: scale(0.98);
+}
+
+/* ========================================
+   TASK CARDS GRID - карточки задач
+   ======================================== */
+
+.task-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.task-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  background: white;
+  border: 2px solid #E2E8F0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 120px;
+}
+
+.task-card:active {
+  transform: scale(0.98);
+}
+
+.task-card.done {
+  background: linear-gradient(135deg, #DCFCE7 0%, #F0FDF4 100%);
+  border-color: #86EFAC;
+}
+
+.task-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F1F5F9;
+  color: #64748B;
+  margin-bottom: 12px;
+}
+
+.task-card.done .task-card-icon {
+  background: #22C55E;
+  color: white;
+}
+
+.task-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 4px;
+}
+
+.task-card-status {
+  font-size: 13px;
+  color: #64748B;
+}
+
+.task-card.done .task-card-status {
+  color: #16A34A;
+  font-weight: 500;
+}
+
+.task-card-arrow {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  color: #94A3B8;
+}
+
+/* Кнопка получения результатов */
+.get-results-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.get-results-btn:active {
+  transform: scale(0.98);
+}
+
+.get-results-btn:disabled {
+  opacity: 0.7;
+}
+
+.processing-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: #FEF9C3;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #854D0E;
+  margin-top: 16px;
+}
+
+.processing-hint .spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Legacy styles - для обратной совместимости */
+.setup-hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.setup-icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.setup-hero h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 12px;
+}
+
+.setup-hero p {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Карточки задач */
+.setup-tasks {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 100%;
-  max-width: 280px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+}
+
+.setup-task-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: white;
+  border: 2px solid #E2E8F0;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
   text-align: left;
+}
+
+.setup-task-card:hover {
+  border-color: #CBD5E1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.setup-task-card.done {
+  background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+  border-color: #22C55E;
+}
+
+.setup-task-icon {
+  width: 48px;
+  height: 48px;
+  background: #F1F5F9;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748B;
+  flex-shrink: 0;
+}
+
+.setup-task-card.done .setup-task-icon {
+  background: #22C55E;
+  color: white;
+}
+
+.setup-task-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.setup-task-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.setup-task-status {
+  font-size: 13px;
+  color: #64748B;
+}
+
+.setup-task-card.done .setup-task-status {
+  color: #16A34A;
+  font-weight: 600;
+}
+
+.setup-task-arrow {
+  color: #94A3B8;
+  flex-shrink: 0;
+}
+
+.setup-task-card:hover .setup-task-arrow {
+  color: #64748B;
+  transform: translateX(2px);
+}
+
+/* Кнопка отправки */
+.setup-submit-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 14px rgba(74, 144, 226, 0.35);
+}
+
+.setup-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74, 144, 226, 0.4);
+}
+
+.setup-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.setup-submit-btn .spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Подсказка */
+.setup-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: #FEF3C7;
+  border: 1px solid #F59E0B;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #92400E;
+}
+
+.setup-hint .spinner {
+  animation: spin 1s linear infinite;
+  color: #F59E0B;
+}
+
+/* Преимущества */
+.setup-benefits {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.setup-benefits h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 16px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #475569;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.benefit-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.benefit-icon {
+  font-size: 20px;
+}
+
+/* Legacy чеклист (оставляем для совместимости) */
+.readiness-checklist {
+  display: none;
 }
 
 .checklist-item {
@@ -219,13 +653,12 @@
 }
 
 /* ========================================
-   HEADER С ГРАДИЕНТОМ
+   HEADER С ГРАДИЕНТОМ (v2 - упрощённый)
    ======================================== */
 
 .report-header-new {
-  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
-  padding: 16px 20px 32px;
-  color: #fff !important;
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  padding-bottom: 20px;
 }
 
 .report-header-new * {
@@ -236,102 +669,272 @@
   color: #fff !important;
 }
 
-.header-top {
+/* Header Navigation */
+.header-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  padding: 12px 16px;
 }
 
-.report-header-new .back-btn {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: white;
-  transition: all 0.2s;
-}
-
-.report-header-new .back-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
-}
-
-.header-title {
+.header-nav h1 {
   font-size: 17px;
-  font-weight: 700;
-  color: #fff !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  color: white;
+  margin: 0;
 }
 
-.header-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.report-header-new .action-btn {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
+.nav-back,
+.nav-share {
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 12px;
+  color: white;
   cursor: pointer;
-  font-size: 18px;
   transition: all 0.2s;
 }
 
-.report-header-new .action-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
+.nav-back:hover,
+.nav-share:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
-.patient-name {
-  font-size: 26px;
-  font-weight: 800;
-  margin: 0 0 16px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+.nav-back:active,
+.nav-share:active {
+  transform: scale(0.95);
 }
 
-.report-header-new .patient-stats {
+/* Переключатель профилей */
+.profile-selector-wrapper {
+  position: relative;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  justify-content: center;
+  padding: 8px 16px 12px;
 }
 
-.report-header-new .stat-chip {
+.profile-selector-btn {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 12px 18px;
+  justify-content: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: default;
+  padding: 4px 8px;
+}
+
+.profile-selector-btn.has-dropdown {
+  cursor: pointer;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  min-width: 75px;
-  backdrop-filter: blur(4px);
-  color: #fff !important;
+  transition: all 0.2s;
 }
 
-.report-header-new .stat-chip * {
-  color: #fff !important;
+.profile-selector-btn.has-dropdown:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.report-header-new .stat-value {
-  font-size: 18px;
+.profile-selector-name {
+  font-size: 28px;
   font-weight: 700;
-  color: #fff !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.report-header-new .stat-label {
+.profile-selector-arrow {
+  color: rgba(255, 255, 255, 0.8);
+  transition: transform 0.2s;
+}
+
+.profile-selector-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Дропдаун профилей */
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  z-index: 100;
+  animation: dropdownSlide 0.2s ease;
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.profile-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+
+.profile-dropdown-item:hover {
+  background: #F3F4F6;
+}
+
+.profile-dropdown-item.active {
+  background: #EEF2FF;
+}
+
+.dropdown-item-name {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.dropdown-item-label {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.85) !important;
-  margin-top: 2px;
+  color: #6B7280;
+}
+
+.dropdown-item-check {
+  color: #3B82F6;
+  flex-shrink: 0;
+}
+
+.profile-dropdown-item.add-new {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid #E5E7EB;
+  color: #3B82F6;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.profile-dropdown-item.add-new:hover {
+  background: #EFF6FF;
+}
+
+/* Кнопка добавления родственника (когда нет родственников) */
+.add-family-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 auto 4px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-family-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.add-family-btn:active {
+  transform: scale(0.98);
+}
+
+/* Кнопка-иконка добавления родственника */
+.add-family-btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-family-btn-icon:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: scale(1.05);
+}
+
+.add-family-btn-icon:active {
+  transform: scale(0.95);
+}
+
+/* Setup mode (когда нет разбора) - чистый белый стиль */
+.report-header-new.setup-mode {
+  background: white;
+  padding-bottom: 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.report-header-new.setup-mode * {
+  color: #1F2937;
+}
+
+.report-header-new.setup-mode svg {
+  color: #374151 !important;
+}
+
+.report-header-new.setup-mode .header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+.report-header-new.setup-mode .header-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.report-header-new.setup-mode .back-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.report-header-new.setup-mode .back-btn:active {
+  background: #F3F4F6;
+}
+
+/* Скрываем ProfileSwitcher */
+.report-header-new .profile-switcher {
+  display: none;
 }
 
 /* ========================================
@@ -1160,6 +1763,341 @@
   line-height: 1.5;
 }
 
+.disclaimer-section {
+  padding: 16px 20px;
+  margin-bottom: 80px; /* место для BottomNav */
+  text-align: center;
+}
+
+.disclaimer-section p {
+  font-size: 12px;
+  color: #9CA3AF;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ========================================
+   STATS BLOCK С ПРОГРЕСС-БАРОМ
+   ======================================== */
+
+.stats-block {
+  padding: 0 16px;
+  margin-top: -20px;
+  margin-bottom: 16px;
+}
+
+.stats-row .stats-item.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stats-row .stats-item.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.stats-row .stats-item.clickable:active {
+  transform: translateY(0);
+}
+
+.stat-progress-bar {
+  display: flex;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 12px;
+  background: #E5E7EB;
+}
+
+.stat-progress-bar .progress-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.stat-progress-bar .progress-segment.critical {
+  background: #EF4444;
+}
+
+.stat-progress-bar .progress-segment.warning {
+  background: #F59E0B;
+}
+
+.stat-progress-bar .progress-segment.normal {
+  background: #10B981;
+}
+
+/* ========================================
+   КНОПКА ДЕЙСТВИЯ В ГЛАВНОМ БЛОКЕ
+   ======================================== */
+
+.main-finding-action-btn {
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 16px;
+  background: white;
+  color: #2563EB;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.main-finding-action-btn:hover {
+  background: #F3F4F6;
+}
+
+.main-finding-action-btn:active {
+  background: #E5E7EB;
+}
+
+/* ========================================
+   СТРЕЛКИ ОТКЛОНЕНИЙ
+   ======================================== */
+
+.deviation-arrow {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.deviation-arrow.up {
+  color: #EF4444;
+}
+
+.deviation-arrow.down {
+  color: #F59E0B;
+}
+
+/* ========================================
+   ИКОНКИ СИСТЕМ
+   ======================================== */
+
+.detail-icon-component {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #F8F6F3 0%, #F3F4F6 100%);
+  border-radius: 14px;
+  color: #4A90E2;
+}
+
+/* ========================================
+   NEXT STEPS SECTION (ЧТО ДАЛЬШЕ?)
+   ======================================== */
+
+.next-steps-section {
+  padding: 24px 0;
+  margin-top: 8px;
+}
+
+.next-steps-section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0 0 16px;
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.action-card:hover {
+  border-color: #3B82F6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.action-card:active {
+  transform: scale(0.98);
+}
+
+.action-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #EFF6FF;
+  border-radius: 12px;
+  color: #3B82F6;
+  flex-shrink: 0;
+}
+
+.action-icon.upload {
+  background: #ECFDF5;
+  color: #10B981;
+}
+
+.action-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.action-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.action-subtitle {
+  display: block;
+  font-size: 13px;
+  color: #6B7280;
+  margin-top: 2px;
+}
+
+.action-arrow {
+  color: #9CA3AF;
+  flex-shrink: 0;
+}
+
+/* ========================================
+   ANALYSIS LIST MODAL
+   ======================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.modal-sheet {
+  width: 100%;
+  max-height: 80vh;
+  background: white;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+  animation: sheetSlideUp 0.3s ease;
+}
+
+@keyframes sheetSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  background: #E5E7EB;
+  border-radius: 2px;
+  margin: 12px auto;
+}
+
+.modal-header {
+  padding: 8px 24px 16px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0 0 4px;
+}
+
+.modal-header p {
+  font-size: 14px;
+  color: #6B7280;
+  margin: 0;
+}
+
+.modal-body {
+  padding: 16px 24px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.analysis-list-modal {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.analysis-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.analysis-item:last-child {
+  border-bottom: none;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.critical { background: #EF4444; }
+.status-dot.warning { background: #F59E0B; }
+
+.analysis-item .analysis-name {
+  font-size: 15px;
+  color: #374151;
+}
+
+.modal-footer {
+  padding: 16px 24px 32px;
+  border-top: 1px solid #F3F4F6;
+}
+
+.lab-link {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  color: #3B82F6;
+  font-size: 15px;
+  text-decoration: none;
+  margin-bottom: 12px;
+}
+
+.lab-link:hover {
+  text-decoration: underline;
+}
+
+.close-btn {
+  width: 100%;
+  padding: 16px;
+  background: #1F2937;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: #374151;
+}
+
+.close-btn:active {
+  transform: scale(0.98);
+}
+
+
 /* ========================================
    STATES
    ======================================== */
@@ -1310,4 +2248,43 @@
 
 .state-btn.secondary:hover {
   background: #E5E7EB;
+}
+
+/* ========================================
+   DEMO BUTTON
+   ======================================== */
+.demo-button-container {
+  padding: 16px;
+  background: #F8F6F3;
+}
+
+.demo-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #FFC107 0%, #FFB300 100%);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255, 193, 7, 0.3);
+  transition: all 0.2s ease;
+}
+
+.demo-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+}
+
+.demo-button:active {
+  transform: scale(0.98);
+}
+
+.demo-button svg {
+  flex-shrink: 0;
 }

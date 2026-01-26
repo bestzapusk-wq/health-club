@@ -1,0 +1,116 @@
+.weight-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.weight-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 24px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.weight-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #F1F5F9;
+  border-radius: 50%;
+  color: #64748B;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.weight-modal-close:hover {
+  background: #E2E8F0;
+  color: #1E293B;
+}
+
+.weight-modal-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0 auto 16px;
+}
+
+.weight-modal h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1E293B;
+  margin-bottom: 20px;
+}
+
+.weight-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.weight-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.weight-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.weight-field input {
+  padding: 14px 16px;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #1E293B;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.weight-field input:focus {
+  outline: none;
+  border-color: #4A90E2;
+}
+
+.weight-error {
+  color: #EF4444;
+  font-size: 13px;
+  margin: 0;
+  text-align: center;
+}

@@ -1,0 +1,154 @@
+/* src/components/food/BestPlatesCarousel.css */
+
+.best-plates-section {
+  padding: 16px 0;
+  background: white;
+  margin-bottom: 8px;
+  border-radius: 16px;
+  margin: 0 16px 16px;
+}
+
+.best-plates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px 12px;
+}
+
+.best-plates-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.best-plates-title .trophy-icon {
+  color: #ffc107;
+  background: none;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+.best-plates-title h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a2e;
+}
+
+.see-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #667eea;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.see-all-btn:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+/* Карусель */
+.plates-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 0 16px 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.plates-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Карточка тарелки */
+.plate-card {
+  flex: 0 0 140px;
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.plate-card:hover {
+  transform: scale(1.02);
+}
+
+.plate-card:active {
+  transform: scale(0.98);
+}
+
+.plate-rank {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.plate-image {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.plate-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.meal-type-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
+}
+
+.plate-info {
+  padding: 8px 4px 0;
+  text-align: center;
+}
+
+.plate-owner {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plate-dish {
+  display: block;
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

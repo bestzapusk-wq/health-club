@@ -6,29 +6,23 @@ import { supabase } from './supabase';
  * @returns {Promise<Object>} - Результат анализа
  */
 export async function generateReport(userId) {
-  // Получаем текущую сессию для авторизации
-  const { data: { session } } = await supabase.auth.getSession();
-  
-  if (!session) {
+  if (!userId) {
     throw new Error('Пользователь не авторизован');
   }
 
-  // Устанавливаем статус "processing"
+  // Устанавливаем статус "processing" - создаём новую запись
   await supabase
     .from('analysis_results')
-    .upsert({
+    .insert({
       user_id: userId,
       status: 'processing',
-      started_at: new Date().toISOString()
-    }, { onConflict: 'user_id' });
+      created_at: new Date().toISOString()
+    });
 
   try {
-    // Вызываем Edge Function с токеном авторизации
+    // Вызываем Edge Function
     const { data, error } = await supabase.functions.invoke('generate-report', {
-      body: { user_id: userId },
-      headers: {
-        Authorization: `Bearer ${session.access_token}`
-      }
+      body: { user_id: userId }
     });
 
     if (error) {

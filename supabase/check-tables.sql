@@ -137,6 +137,73 @@ CREATE POLICY "Users can delete own files" ON storage.objects
 
 
 -- =============================================
+-- 6. FASTING_SETTINGS (настройки интервального голодания)
+-- =============================================
+CREATE TABLE IF NOT EXISTS fasting_settings (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE UNIQUE,
+  mode text NOT NULL DEFAULT '16:8',
+  eating_window_start time NOT NULL DEFAULT '12:00',
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+
+-- Индекс для быстрого поиска по user_id
+CREATE INDEX IF NOT EXISTS idx_fasting_settings_user_id ON fasting_settings(user_id);
+
+-- RLS
+ALTER TABLE fasting_settings ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own fasting settings" ON fasting_settings;
+CREATE POLICY "Users can view own fasting settings" ON fasting_settings
+  FOR SELECT USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can insert own fasting settings" ON fasting_settings;
+CREATE POLICY "Users can insert own fasting settings" ON fasting_settings
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can update own fasting settings" ON fasting_settings;
+CREATE POLICY "Users can update own fasting settings" ON fasting_settings
+  FOR UPDATE USING (auth.uid() = user_id);
+
+
+-- =============================================
+-- 7. FASTING_SESSIONS (история сессий голодания)
+-- =============================================
+CREATE TABLE IF NOT EXISTS fasting_sessions (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  mode text NOT NULL,
+  started_at timestamptz NOT NULL,
+  ended_at timestamptz NOT NULL,
+  planned_hours integer NOT NULL,
+  actual_hours decimal(4,2) NOT NULL,
+  completed_fully boolean DEFAULT false,
+  created_at timestamptz DEFAULT now()
+);
+
+-- Индексы
+CREATE INDEX IF NOT EXISTS idx_fasting_sessions_user_id ON fasting_sessions(user_id);
+CREATE INDEX IF NOT EXISTS idx_fasting_sessions_started_at ON fasting_sessions(user_id, started_at DESC);
+
+-- RLS
+ALTER TABLE fasting_sessions ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own fasting sessions" ON fasting_sessions;
+CREATE POLICY "Users can view own fasting sessions" ON fasting_sessions
+  FOR SELECT USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can insert own fasting sessions" ON fasting_sessions;
+CREATE POLICY "Users can insert own fasting sessions" ON fasting_sessions
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can update own fasting sessions" ON fasting_sessions;
+CREATE POLICY "Users can update own fasting sessions" ON fasting_sessions
+  FOR UPDATE USING (auth.uid() = user_id);
+
+
+-- =============================================
 -- ПРОВЕРКА: Выполните эти запросы для диагностики
 -- =============================================
 
@@ -144,8 +211,12 @@ CREATE POLICY "Users can delete own files" ON storage.objects
 -- SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'survey_responses';
 -- SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'uploaded_files';
 -- SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'analysis_results';
+-- SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'fasting_settings';
+-- SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'fasting_sessions';
 
 -- Проверить данные:
 -- SELECT * FROM survey_responses LIMIT 5;
 -- SELECT * FROM uploaded_files LIMIT 5;
 -- SELECT * FROM analysis_results LIMIT 5;
+-- SELECT * FROM fasting_settings LIMIT 5;
+-- SELECT * FROM fasting_sessions LIMIT 5;

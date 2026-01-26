@@ -1,0 +1,655 @@
+/* ========================================
+   Fasting Page - В общем стиле приложения
+   ======================================== */
+
+.fasting-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #F8F9FC;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+.fasting-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: #64748B;
+  font-size: 15px;
+}
+
+/* ========================================
+   Header - как в FoodPage
+   ======================================== */
+
+.fasting-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.fasting-header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2C3E50;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F8F9FC;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.icon-btn:hover {
+  background: #EEF2F7;
+  color: #4A90E2;
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+}
+
+.back-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F8F9FC;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #EEF2F7;
+  color: #4A90E2;
+}
+
+/* ========================================
+   Content
+   ======================================== */
+
+.fasting-content {
+  padding: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   Timer Container
+   ======================================== */
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0;
+}
+
+/* Круговой таймер */
+.timer-circle {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+
+.progress-ring {
+  width: 100%;
+  height: 100%;
+}
+
+.progress-circle {
+  transition: stroke-dasharray 1s linear;
+}
+
+/* Контент внутри круга */
+.timer-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 160px;
+}
+
+.timer-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.status-icon {
+  font-size: 18px;
+}
+
+.status-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #F59E0B;
+  letter-spacing: 1px;
+}
+
+.timer-time {
+  font-size: 36px;
+  font-weight: 800;
+  color: #2C3E50;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.timer-label {
+  font-size: 13px;
+  color: #64748B;
+  margin-top: 4px;
+}
+
+/* Режим */
+.mode-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748B;
+  margin: 20px 0 16px;
+  padding: 8px 16px;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* ========================================
+   Линейный прогресс
+   ======================================== */
+
+.linear-progress {
+  width: 100%;
+  max-width: 280px;
+}
+
+.progress-track {
+  position: relative;
+  height: 6px;
+  background: #E5E7EB;
+  border-radius: 3px;
+  overflow: visible;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FCD34D 0%, #F59E0B 100%);
+  border-radius: 3px;
+  transition: width 1s linear;
+}
+
+.progress-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: #F59E0B;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+  transition: left 1s linear;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.progress-labels .current-time {
+  font-weight: 600;
+  color: #F59E0B;
+}
+
+/* ========================================
+   Мотивация - как карточка
+   ======================================== */
+
+.motivation-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  padding: 14px 16px;
+  background: white;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.motivation-emoji {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.motivation-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2C3E50;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ========================================
+   Статистика сегодня
+   ======================================== */
+
+.today-stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 10px;
+  background: white;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.stat-card .stat-icon {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.stat-card .stat-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2C3E50;
+}
+
+.stat-card .stat-label {
+  font-size: 11px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
+.stat-card.current {
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  border-color: #F59E0B20;
+}
+
+.stat-card.current .stat-value {
+  color: #92400E;
+}
+
+.stat-card.current .stat-label {
+  color: #B45309;
+}
+
+/* ========================================
+   Кнопки - в общем стиле
+   ======================================== */
+
+.fasting-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.end-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px;
+  background: #FEE2E2;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #DC2626;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.end-btn:hover {
+  background: #FECACA;
+}
+
+.end-btn:active {
+  transform: scale(0.98);
+}
+
+.end-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.start-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.25);
+}
+
+.start-btn:hover {
+  background: linear-gradient(135deg, #357ABD 0%, #2A5F8F 100%);
+}
+
+.start-btn:active {
+  transform: scale(0.98);
+}
+
+.start-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.history-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.history-btn:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+  background: #FAFBFC;
+}
+
+.history-btn:active {
+  transform: scale(0.98);
+}
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #FEF3C7;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #92400E;
+  margin-left: 8px;
+}
+
+/* ========================================
+   Idle состояние
+   ======================================== */
+
+.idle-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.idle-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: white;
+  border: 2px dashed #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.idle-icon {
+  font-size: 48px;
+}
+
+.idle-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748B;
+}
+
+.idle-info {
+  text-align: center;
+  padding: 0 24px;
+  margin-bottom: 24px;
+}
+
+.idle-info p {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0;
+}
+
+/* ========================================
+   Состояние "не активно"
+   ======================================== */
+
+.fasting-not-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.fasting-not-active .empty-icon {
+  font-size: 56px;
+  margin-bottom: 20px;
+}
+
+.fasting-not-active h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2C3E50;
+  margin: 0 0 8px;
+}
+
+.fasting-not-active p {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0 0 24px;
+}
+
+.setup-btn {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.25);
+  transition: all 0.2s;
+}
+
+.setup-btn:hover {
+  background: linear-gradient(135deg, #357ABD 0%, #2A5F8F 100%);
+}
+
+.setup-btn:active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   Модалка завершения
+   ======================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-sheet {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 20px 32px;
+  animation: slideUp 0.3s ease;
+}
+
+.modal-handle {
+  width: 36px;
+  height: 4px;
+  background: #E5E7EB;
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.end-modal-content {
+  text-align: center;
+}
+
+.modal-icon {
+  font-size: 56px;
+  margin-bottom: 12px;
+}
+
+.end-modal-content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2C3E50;
+  margin: 0 0 8px;
+}
+
+.end-modal-content p {
+  font-size: 15px;
+  color: #64748B;
+  margin: 0 0 20px;
+}
+
+.modal-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 24px;
+}
+
+.modal-stat {
+  text-align: center;
+}
+
+.modal-stat .stat-value {
+  display: block;
+  font-size: 26px;
+  font-weight: 700;
+  color: #2C3E50;
+}
+
+.modal-stat .stat-label {
+  font-size: 13px;
+  color: #64748B;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-confirm-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-confirm-btn:hover {
+  background: linear-gradient(135deg, #357ABD 0%, #2A5F8F 100%);
+}
+
+.modal-confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-cancel-btn {
+  width: 100%;
+  padding: 14px;
+  background: none;
+  border: none;
+  font-size: 15px;
+  color: #64748B;
+  cursor: pointer;
+}
+
+.modal-cancel-btn:hover {
+  color: #2C3E50;
+}
+
+/* ========================================
+   Анимации
+   ======================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(100%); 
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0); 
+  }
+}

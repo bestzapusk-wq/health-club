@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Check } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
+import AIFeedbackCard from './AIFeedbackCard';
+import { useDailyFeedback } from '../../hooks/useDailyFeedback';
 import './HabitsTracker.css';
 
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -20,6 +23,7 @@ const ACTIVITY_OPTIONS = [15, 30, 45, 60];
 const SLEEP_OPTIONS = [5, 6, 7, 8, 9];
 
 export default function HabitsTracker({ onReportChange }) {
+  const navigate = useNavigate();
   const [water, setWater] = useState(0);
   const [activity, setActivity] = useState(null);
   const [sleep, setSleep] = useState(null);
@@ -29,6 +33,10 @@ export default function HabitsTracker({ onReportChange }) {
   const [userId, setUserId] = useState(null);
 
   const todayKey = getTodayKey();
+  
+  // AI Feedback хук
+  const reportData = { water_ml: water, activity_minutes: activity, sleep_hours: sleep };
+  const { feedback, isLoading: feedbackLoading, generateFeedback } = useDailyFeedback(userId, todayKey, reportData, submitted);
 
   // Загрузка данных при монтировании
   useEffect(() => {
@@ -144,11 +152,14 @@ export default function HabitsTracker({ onReportChange }) {
     saveData(water, activity, newVal);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (filledCount === 0) return;
-    saveData(water, activity, sleep, true);
+    await saveData(water, activity, sleep, true);
     setSubmitted(true);
     setSubmittedAt(new Date().toISOString());
+    
+    // Генерируем AI-фидбек
+    generateFeedback();
   };
 
   const handleEdit = () => {
@@ -170,23 +181,28 @@ export default function HabitsTracker({ onReportChange }) {
     const timeStr = submitDate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
 
     return (
-      <div className="diary-card done">
-        <div className="diary-done">
-          <div className="done-badge">
-            <Check size={20} strokeWidth={3} />
+      <>
+        <div className="diary-card done">
+          <div className="diary-done">
+            <div className="done-badge">
+              <Check size={20} strokeWidth={3} />
+            </div>
+            <div className="done-info">
+              <span className="done-title">Отчёт отправлен</span>
+              <span className="done-time">{formatDate()}, {timeStr}</span>
+            </div>
+            <div className="done-stats">
+              <span>💧{water >= 1000 ? `${(water / 1000).toFixed(1)}л` : `${water}мл`}</span>
+              <span>🏃{activity || 0}м</span>
+              <span>😴{sleep || 0}ч</span>
+            </div>
+            <button className="edit-link" onClick={handleEdit}>Изменить</button>
           </div>
-          <div className="done-info">
-            <span className="done-title">Отчёт отправлен</span>
-            <span className="done-time">{formatDate()}, {timeStr}</span>
-          </div>
-          <div className="done-stats">
-            <span>💧{water >= 1000 ? `${(water / 1000).toFixed(1)}л` : `${water}мл`}</span>
-            <span>🏃{activity || 0}м</span>
-            <span>😴{sleep || 0}ч</span>
-          </div>
-          <button className="edit-link" onClick={handleEdit}>Изменить</button>
         </div>
-      </div>
+        
+        {/* AI-фидбек */}
+        <AIFeedbackCard feedback={feedback} isLoading={feedbackLoading} />
+      </>
     );
   }
 

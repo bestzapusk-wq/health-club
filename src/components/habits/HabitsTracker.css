@@ -265,6 +265,32 @@
   text-decoration: underline;
 }
 
+/* Кнопка "Посмотреть разбор" */
+.view-report-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  margin-top: 12px;
+  background: white;
+  border: 2px solid #4A90E2;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4A90E2;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.view-report-btn:hover {
+  background: #4A90E2;
+  color: white;
+}
+
+.view-report-btn:active {
+  transform: scale(0.98);
+}
+
 /* Animation */
 @keyframes fadeInUp {
   from { 

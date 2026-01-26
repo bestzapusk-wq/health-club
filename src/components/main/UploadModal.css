@@ -197,6 +197,18 @@
   font-weight: 500;
 }
 
+/* Предупреждение о PDF */
+.upload-warning {
+  text-align: center;
+  font-size: 13px;
+  color: #B45309;
+  background: #FEF3C7;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #FCD34D;
+  line-height: 1.4;
+}
+
 /* Гарантия безопасности */
 .upload-security {
   text-align: center;

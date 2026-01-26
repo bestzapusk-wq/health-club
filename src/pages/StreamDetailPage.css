@@ -1,0 +1,310 @@
+.stream-detail-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding-bottom: 100px;
+}
+
+.stream-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.stream-detail-header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+  color: #1a1a1a;
+}
+
+.stream-back-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stream-back-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Видео */
+.stream-video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #000;
+}
+
+.stream-video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stream-video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #666;
+  background: #1a1a1a;
+}
+
+.stream-video-placeholder svg {
+  color: #888;
+}
+
+.stream-video-placeholder p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Мета */
+.stream-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.stream-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 14px;
+}
+
+.stream-meta-item svg {
+  color: #999;
+}
+
+/* Требования */
+.stream-requirements-section {
+  padding: 20px 16px;
+  background: white;
+  margin-top: 8px;
+}
+
+.stream-requirements-section h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: #1a1a1a;
+}
+
+.stream-requirements-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stream-requirements-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.stream-requirements-list svg {
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+/* Почему стоит посмотреть */
+.stream-why-watch-section {
+  padding: 20px 16px;
+  background: white;
+  margin-top: 8px;
+}
+
+.stream-why-watch-section h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: #1a1a1a;
+}
+
+.stream-why-watch-text p {
+  margin: 0 0 12px;
+  line-height: 1.6;
+  color: #333;
+  font-size: 15px;
+}
+
+.stream-why-watch-text p:last-child {
+  margin-bottom: 0;
+}
+
+.stream-why-watch-text br {
+  display: block;
+  content: "";
+  margin-top: 8px;
+}
+
+/* Файлы */
+.stream-files-section {
+  padding: 20px 16px;
+  background: white;
+  margin-top: 8px;
+}
+
+.stream-files-section h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: #1a1a1a;
+}
+
+.stream-files-disclaimer {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.stream-files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stream-file-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #f8f8f8;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.stream-file-card:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+.stream-file-card:active {
+  transform: translateY(0);
+}
+
+.stream-file-card:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.stream-file-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.stream-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.stream-file-name {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+}
+
+.stream-file-description {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stream-file-action {
+  color: #4A90E2;
+  flex-shrink: 0;
+}
+
+.stream-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e0e0e0;
+  border-top-color: #4A90E2;
+  border-radius: 50%;
+  animation: stream-spin 0.8s linear infinite;
+}
+
+@keyframes stream-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Not found */
+.stream-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 16px;
+  color: #666;
+}
+
+.stream-not-found p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.stream-not-found button {
+  padding: 12px 24px;
+  background: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.stream-not-found button:hover {
+  background: #357ABD;
+}

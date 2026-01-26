@@ -1,0 +1,90 @@
+.daily-insight {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 12px;
+  border-left: 4px solid var(--insight-color, #10B981);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.daily-insight.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  color: #6B7280;
+  font-size: 14px;
+}
+
+.daily-insight.loading .spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.insight-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.insight-emoji {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.insight-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151;
+  margin: 0;
+}
+
+.insight-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 12px;
+  background: var(--insight-color, #10B981);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.insight-action:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* Варианты */
+.daily-insight.warning {
+  background: #FFFBEB;
+}
+
+.daily-insight.success {
+  background: #ECFDF5;
+}

@@ -30,10 +30,10 @@ export default function SurveyPage() {
   const [tempAnswer, setTempAnswer] = useState(null);
 
   useEffect(() => {
+    // Если нет user_data — редирект на регистрацию
     const userData = localStorage.getItem('user_data');
     if (!userData) {
       navigate('/register');
-      return;
     }
   }, [navigate]);
 
@@ -143,6 +143,34 @@ export default function SurveyPage() {
                 Пропустить
               </button>
             </div>
+          </>
+        );
+
+      case 'number':
+        return (
+          <>
+            <div className="number-input-wrap">
+              <input
+                type="number"
+                className="number-input"
+                value={tempAnswer || ''}
+                onChange={(e) => setTempAnswer(e.target.value)}
+                placeholder={currentQuestion.placeholder}
+                min={currentQuestion.min}
+                max={currentQuestion.max}
+                autoFocus
+              />
+              {currentQuestion.suffix && (
+                <span className="number-suffix">{currentQuestion.suffix}</span>
+              )}
+            </div>
+            <Button
+              fullWidth
+              disabled={!tempAnswer || tempAnswer === ''}
+              onClick={() => handleAnswer(parseInt(tempAnswer))}
+            >
+              Далее
+            </Button>
           </>
         );
 

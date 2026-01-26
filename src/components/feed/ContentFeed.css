@@ -1,0 +1,125 @@
+.content-feed {
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+
+.content-feed.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6B7280;
+}
+
+/* Section Header */
+.feed-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  margin-bottom: 12px;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 20px;
+}
+
+.feed-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feed-icon {
+  color: #667eea;
+}
+
+.feed-section-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+.suggest-post-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.suggest-post-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.suggest-post-btn:active {
+  transform: translateY(0);
+}
+
+/* Old Header (deprecated) */
+.feed-header {
+  padding: 16px;
+  background: white;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.feed-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.author-role {
+  font-size: 13px;
+  color: #6B7280;
+}
+
+/* Posts */
+.feed-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Load more */
+.load-more-trigger {
+  min-height: 20px;
+}
+
+.feed-end {
+  text-align: center;
+  padding: 24px;
+  color: #9CA3AF;
+  font-size: 14px;
+}

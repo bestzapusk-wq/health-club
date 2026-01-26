@@ -224,7 +224,7 @@ export default function DailyTasks() {
           </div>
         </button>
         
-        <p className="stream-hint">Получи персональный разбор на эфире!</p>
+        <p className="stream-hint">Получи персональные рекомендации на эфире!</p>
       </div>
     </div>
   );

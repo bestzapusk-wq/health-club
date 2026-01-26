@@ -1,26 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, User, FileText, ClipboardList, MessageCircle, Info, ChevronRight, LogOut, Calendar, CheckCircle, BookOpen, Flame, Pill, X, Save } from 'lucide-react';
+import { Bell, User, FileText, ClipboardList, MessageCircle, Info, ChevronRight, LogOut, Pill, BarChart3, Edit2 } from 'lucide-react';
 import BottomNav from '../components/layout/BottomNav';
 import Button from '../components/ui/Button';
+import WeightEditModal from '../components/profile/WeightEditModal';
+import ProfileAvatar from '../components/profile/ProfileAvatar';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   const [notifications, setNotifications] = useState(false);
-  const [stats, setStats] = useState({
-    daysInApp: 0,
-    tasksCompleted: 0,
-    diaryEntries: 0,
-    streak: 0
-  });
   
   // Модалки
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [showWeightModal, setShowWeightModal] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(null);
-  const [editData, setEditData] = useState({});
 
   useEffect(() => {
     const data = localStorage.getItem('user_data');
@@ -28,42 +23,35 @@ export default function ProfilePage() {
       setUserData(JSON.parse(data));
     }
     setNotifications(localStorage.getItem('notifications_enabled') === 'true');
-
-    // Calculate statistics
-    calculateStats();
   }, []);
 
-  const calculateStats = () => {
-    // Days in app (from registration date)
-    const regDate = localStorage.getItem('registration_date');
-    let daysInApp = 1;
-    if (regDate) {
-      const diff = Date.now() - new Date(regDate).getTime();
-      daysInApp = Math.max(1, Math.floor(diff / (1000 * 60 * 60 * 24)));
-    }
-
-    // Tasks completed
-    const completedTasks = localStorage.getItem('completed_daily_tasks');
-    let tasksCompleted = 0;
-    if (completedTasks) {
-      const tasks = JSON.parse(completedTasks);
-      tasksCompleted = Object.values(tasks).flat().length;
-    }
-
-    // Diary entries
-    const diary = localStorage.getItem('food_diary');
-    const diaryEntries = diary ? JSON.parse(diary).length : 0;
-
-    // Calculate streak (simplified - based on consecutive days with tasks)
-    const streak = Math.min(daysInApp, 7); // Placeholder
-
-    setStats({
-      daysInApp,
-      tasksCompleted,
-      diaryEntries,
-      streak
-    });
+  // Расчёт ИМТ
+  const calculateBMI = () => {
+    const weight = userData.weight_kg || userData.weight;
+    const height = userData.height_cm || userData.height;
+    
+    if (!weight || !height) return null;
+    
+    const heightM = height / 100;
+    return weight / (heightM * heightM);
   };
+
+  const getBMIStatus = () => {
+    const bmi = calculateBMI();
+    if (!bmi) return { text: 'Укажите вес и рост', color: '#64748B', icon: '' };
+    
+    if (bmi < 18.5) {
+      return { text: 'Недостаточный вес', color: '#F59E0B', icon: '⚠️' };
+    } else if (bmi < 25) {
+      return { text: 'Здоровый вес', color: '#10B981', icon: '✓' };
+    } else if (bmi < 30) {
+      return { text: 'Избыточный вес', color: '#F59E0B', icon: '⚠️' };
+    } else {
+      return { text: 'Ожирение', color: '#EF4444', icon: '⚠️' };
+    }
+  };
+
+  const bmiStatus = getBMIStatus();
 
   const toggleNotifications = async () => {
     if (!notifications && 'Notification' in window) {
@@ -84,101 +72,73 @@ export default function ProfilePage() {
     navigate('/register');
   };
 
-  const openEditModal = () => {
-    setEditData({
-      name: userData.name || '',
-      age: userData.age || '',
-      weight: userData.weight || '',
-      height: userData.height || ''
-    });
-    setShowEditModal(true);
-  };
-
-  const saveUserData = () => {
-    const updated = {
-      ...userData,
-      name: editData.name,
-      age: parseInt(editData.age) || userData.age,
-      weight: parseInt(editData.weight) || userData.weight,
-      height: parseInt(editData.height) || userData.height
-    };
-    localStorage.setItem('user_data', JSON.stringify(updated));
-    localStorage.setItem('user_name', editData.name);
-    setUserData(updated);
-    setShowEditModal(false);
+  const handleWeightSave = (updatedData) => {
+    setUserData(updatedData);
   };
 
   const menuItems = [
-    { icon: User, title: 'Личные данные', action: openEditModal },
+    { icon: User, title: 'Личные данные', action: () => navigate('/profile/edit') },
     { icon: FileText, title: 'Мои анализы', action: () => navigate('/report') },
     { icon: ClipboardList, title: 'История опросников', comingSoon: true },
-    { icon: MessageCircle, title: 'Поддержка', action: () => window.open('https://wa.me/77001234567', '_blank') },
+    { icon: MessageCircle, title: 'Поддержка', action: () => window.open('https://wa.me/77472370208', '_blank') },
     { icon: Info, title: 'О приложении', comingSoon: true }
   ];
 
+  const weight = userData.weight_kg || userData.weight;
+
   return (
     <div className="profile-page">
-      <div className="profile-header">
-        <div className="profile-avatar">
-          {userData.name?.charAt(0)?.toUpperCase() || 'U'}
+      {/* Новая шапка с аватаром и данными */}
+      <div className="profile-header-new">
+        <div className="profile-header-content">
+          <ProfileAvatar
+            imageUrl={userData.avatar_url}
+            name={userData.name || userData.first_name}
+            size="medium"
+          />
+          <div className="profile-info">
+            <h2 className="profile-name-new">
+              {userData.name || userData.first_name || 'Пользователь'}
+              {userData.last_name ? ` ${userData.last_name}` : ''}
+            </h2>
+            <div className="profile-weight-row">
+              {weight && (
+                <span className="profile-weight">{weight} кг</span>
+              )}
+              {weight && <span className="profile-dot">•</span>}
+              <span className="profile-bmi" style={{ color: bmiStatus.color }}>
+                {bmiStatus.text} {bmiStatus.icon}
+              </span>
+            </div>
+          </div>
+          <button className="edit-weight-btn" onClick={() => navigate('/profile/edit')}>
+            <Edit2 size={18} />
+          </button>
         </div>
-        <h2 className="profile-name">{userData.name || 'Пользователь'}</h2>
-        <p className="profile-phone">{userData.whatsapp || ''}</p>
       </div>
 
       <main className="profile-content">
         
-        {/* Statistics Card */}
-        <div className="stats-card">
-          <h3>📊 Твоя статистика</h3>
-          <div className="stats-grid">
-            <div className="stat-item">
-              <div className="stat-icon">
-                <Calendar size={20} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stats.daysInApp}</span>
-                <span className="stat-label">дней в приложении</span>
-              </div>
-            </div>
-            
-            <div className="stat-item">
-              <div className="stat-icon">
-                <CheckCircle size={20} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stats.tasksCompleted}</span>
-                <span className="stat-label">выполнено заданий</span>
-              </div>
-            </div>
-            
-            <div className="stat-item">
-              <div className="stat-icon">
-                <BookOpen size={20} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stats.diaryEntries}</span>
-                <span className="stat-label">записей в дневнике</span>
-              </div>
-            </div>
-            
-            <div className="stat-item highlight">
-              <div className="stat-icon fire">
-                <Flame size={20} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">{stats.streak}</span>
-                <span className="stat-label">дней подряд 🔥</span>
-              </div>
-            </div>
+        {/* Статистика */}
+        <button className="profile-feature-card" onClick={() => navigate('/profile/stats')}>
+          <div className="feature-icon stats">
+            <BarChart3 size={22} />
           </div>
-        </div>
+          <div className="feature-text">
+            <span className="feature-title">Моя статистика</span>
+          </div>
+          <ChevronRight size={20} className="feature-arrow" />
+        </button>
 
-        {/* Vitamins Button */}
-        <button className="vitamins-btn" onClick={() => navigate('/vitamins')}>
-          <Pill size={20} />
-          <span>Настроить приём витаминов</span>
-          <ChevronRight size={20} />
+        {/* Витамины */}
+        <button className="profile-feature-card vitamins" onClick={() => navigate('/vitamins')}>
+          <div className="feature-icon vitamin">
+            <Pill size={22} />
+          </div>
+          <div className="feature-text">
+            <span className="feature-title">Настроить приём витаминов</span>
+          </div>
+          <ChevronRight size={20} className="feature-arrow" />
         </button>
 
         {/* Notifications toggle */}
@@ -221,6 +181,14 @@ export default function ProfilePage() {
 
       <BottomNav />
 
+      {/* Модалка редактирования веса */}
+      <WeightEditModal
+        isOpen={showWeightModal}
+        onClose={() => setShowWeightModal(false)}
+        userData={userData}
+        onSave={handleWeightSave}
+      />
+
       {/* Модалка выхода */}
       {showLogoutModal && (
         <div className="profile-modal-overlay" onClick={() => setShowLogoutModal(false)}>
@@ -249,64 +217,6 @@ export default function ProfilePage() {
             <p>Этот раздел появится в ближайшем обновлении</p>
             <Button fullWidth onClick={() => setShowComingSoon(null)}>
               Понятно
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {/* Модалка редактирования */}
-      {showEditModal && (
-        <div className="profile-modal-overlay" onClick={() => setShowEditModal(false)}>
-          <div className="profile-modal edit-modal" onClick={e => e.stopPropagation()}>
-            <button className="modal-close-btn" onClick={() => setShowEditModal(false)}>
-              <X size={20} />
-            </button>
-            <h3>Личные данные</h3>
-            
-            <div className="edit-form">
-              <div className="edit-field">
-                <label>Имя</label>
-                <input
-                  type="text"
-                  value={editData.name}
-                  onChange={e => setEditData(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Ваше имя"
-                />
-              </div>
-              <div className="edit-row">
-                <div className="edit-field">
-                  <label>Возраст</label>
-                  <input
-                    type="number"
-                    value={editData.age}
-                    onChange={e => setEditData(prev => ({ ...prev, age: e.target.value }))}
-                    placeholder="40"
-                  />
-                </div>
-                <div className="edit-field">
-                  <label>Вес (кг)</label>
-                  <input
-                    type="number"
-                    value={editData.weight}
-                    onChange={e => setEditData(prev => ({ ...prev, weight: e.target.value }))}
-                    placeholder="65"
-                  />
-                </div>
-                <div className="edit-field">
-                  <label>Рост (см)</label>
-                  <input
-                    type="number"
-                    value={editData.height}
-                    onChange={e => setEditData(prev => ({ ...prev, height: e.target.value }))}
-                    placeholder="165"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <Button fullWidth onClick={saveUserData}>
-              <Save size={18} />
-              Сохранить
             </Button>
           </div>
         </div>

@@ -1,0 +1,862 @@
+/* ========================================
+   Fasting Onboarding Wizard
+   В стиле Health Club
+   ======================================== */
+
+.fasting-onboarding {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #F8F9FC;
+  display: flex;
+  flex-direction: column;
+}
+
+.fasting-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #64748B;
+  font-size: 15px;
+}
+
+/* ========================================
+   Header
+   ======================================== */
+.fasting-ob-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: white;
+  border-bottom: 1px solid #E5E7EB;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.fasting-ob-back {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #F1F5F9;
+  border-radius: 12px;
+  color: #64748B;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.fasting-ob-back:hover {
+  background: #E2E8F0;
+  color: #1E293B;
+}
+
+.fasting-ob-back:active {
+  transform: scale(0.95);
+}
+
+.fasting-ob-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0;
+}
+
+/* ========================================
+   Content
+   ======================================== */
+.fasting-ob-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  padding-bottom: 140px;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.fasting-ob-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  background: white;
+  border-top: 1px solid #E5E7EB;
+}
+
+.fasting-ob-footer .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.fasting-ob-footer .btn-success {
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%) !important;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+}
+
+.fasting-ob-footer .btn-success:hover {
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
+}
+
+.fasting-disclaimer {
+  font-size: 12px;
+  color: #94A3B8;
+  text-align: center;
+  margin: 12px 0 0;
+  line-height: 1.5;
+}
+
+/* ========================================
+   Step 0: Intro Screen
+   ======================================== */
+.fasting-intro-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 300px);
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.intro-hero {
+  max-width: 340px;
+}
+
+.intro-icon-circle {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #EBF5FF 0%, #DBEAFE 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+  color: #4A90E2;
+}
+
+.intro-hero h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 16px;
+  line-height: 1.3;
+}
+
+.intro-hero p {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.intro-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 48px;
+}
+
+.intro-dots .dot {
+  width: 24px;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.intro-dots .dot.active {
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  width: 32px;
+}
+
+/* ========================================
+   Step 1: Goal/Mode Selection
+   ======================================== */
+.fasting-goal-screen {
+  width: 100%;
+}
+
+.fasting-modes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.fasting-mode-card {
+  position: relative;
+  background: white;
+  border: 2px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.fasting-mode-card:hover {
+  border-color: #CBD5E1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.fasting-mode-card.selected {
+  border-color: #4A90E2;
+  background: linear-gradient(135deg, #EBF5FF 0%, #F8FAFC 100%);
+  box-shadow: 0 4px 20px rgba(74, 144, 226, 0.15);
+}
+
+.mode-recommended {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+.mode-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.mode-card-label {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1E293B;
+}
+
+.mode-difficulty-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.mode-difficulty-badge.easy {
+  background: linear-gradient(135deg, #DCFCE7 0%, #BBF7D0 100%);
+  color: #166534;
+}
+
+.mode-difficulty-badge.medium {
+  background: linear-gradient(135deg, #FEF9C3 0%, #FDE68A 100%);
+  color: #854D0E;
+}
+
+.mode-difficulty-badge.hard {
+  background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+  color: #991B1B;
+}
+
+.mode-card-desc {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0 0 12px;
+}
+
+.mode-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.benefit-tag {
+  font-size: 12px;
+  color: #475569;
+  background: #F1F5F9;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+}
+
+.fasting-info-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.fasting-info-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 8px;
+}
+
+.fasting-info-card p {
+  font-size: 14px;
+  color: #64748B;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ========================================
+   Step 2: Schedule Screen
+   ======================================== */
+.fasting-schedule-screen {
+  width: 100%;
+}
+
+.schedule-section {
+  margin-bottom: 28px;
+}
+
+.schedule-section h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 4px;
+}
+
+.schedule-hint {
+  font-size: 13px;
+  color: #64748B;
+  margin: 0 0 16px;
+}
+
+.time-presets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.time-presets-grid .time-preset-card:last-child {
+  grid-column: 1 / -1;
+}
+
+.time-preset-card {
+  background: white;
+  border: 2px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.time-preset-card:hover {
+  border-color: #CBD5E1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.time-preset-card.selected {
+  border-color: #4A90E2;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  box-shadow: 0 4px 20px rgba(74, 144, 226, 0.35);
+}
+
+.time-preset-card.selected .preset-time,
+.time-preset-card.selected .preset-label {
+  color: white;
+}
+
+.preset-icon {
+  font-size: 28px;
+}
+
+.preset-time {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1E293B;
+}
+
+.preset-label {
+  font-size: 13px;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.custom-time-card {
+  background: white;
+  border: 2px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  color: #64748B;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.custom-time-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.custom-time-card.selected {
+  border-color: #4A90E2;
+  background: linear-gradient(135deg, #EBF5FF 0%, #F8FAFC 100%);
+  box-shadow: 0 4px 20px rgba(74, 144, 226, 0.15);
+}
+
+.custom-time-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.custom-time-input {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1E293B;
+  border: none;
+  background: transparent;
+  padding: 0;
+  width: 100px;
+  cursor: pointer;
+}
+
+.custom-time-input:focus {
+  outline: none;
+}
+
+.custom-time-hint {
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+/* Schedule Preview */
+.schedule-preview {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1E293B;
+  margin-bottom: 16px;
+}
+
+.preview-header svg {
+  color: #4A90E2;
+}
+
+.preview-times {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preview-time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #64748B;
+}
+
+.preview-time-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+/* ========================================
+   Step 3: Complete Screen
+   ======================================== */
+.fasting-complete-screen {
+  width: 100%;
+}
+
+.complete-hero {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.complete-icon-circle {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  color: white;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35);
+  animation: iconPop 0.5s ease;
+}
+
+@keyframes iconPop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.complete-hero h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 12px;
+}
+
+.complete-hero p {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Summary Card */
+.complete-summary {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.complete-summary h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.complete-summary h4 svg {
+  color: #4A90E2;
+}
+
+.summary-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.summary-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #EBF5FF 0%, #DBEAFE 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4A90E2;
+  flex-shrink: 0;
+}
+
+.summary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.summary-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.summary-value {
+  font-size: 13px;
+  color: #64748B;
+  line-height: 1.5;
+}
+
+/* Tips */
+.complete-tips {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.complete-tips h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 16px;
+}
+
+.complete-tips ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.complete-tips li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #64748B;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.complete-tips li:last-child {
+  margin-bottom: 0;
+}
+
+.complete-tips li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #22C55E;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+/* Next Steps */
+.complete-next-steps {
+  margin-bottom: 20px;
+}
+
+.complete-next-steps h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 16px;
+}
+
+.next-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.next-step-item:last-child {
+  margin-bottom: 0;
+}
+
+.step-number {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.next-step-item span:last-child {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+  padding-top: 4px;
+}
+
+/* ========================================
+   Кнопка "В чём разница?"
+   ======================================== */
+.difference-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  background: #F3F4F6;
+  border: none;
+  border-radius: 12px;
+  color: #4B5563;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.difference-btn:hover {
+  background: #E5E7EB;
+}
+
+/* ========================================
+   Модалка "В чём разница?"
+   ======================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-sheet {
+  background: white;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: sheetSlideUp 0.3s ease;
+}
+
+@keyframes sheetSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.modal-handle {
+  width: 36px;
+  height: 4px;
+  background: #D1D5DB;
+  border-radius: 2px;
+  margin: 12px auto 0;
+}
+
+.modal-header {
+  padding: 20px 24px 12px;
+}
+
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0;
+}
+
+.modal-body {
+  padding: 0 24px 24px;
+}
+
+.difference-item {
+  padding: 16px;
+  margin-bottom: 12px;
+  background: #F9FAFB;
+  border-radius: 12px;
+}
+
+.difference-item.recommended {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+}
+
+.diff-ratio {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1F2937;
+}
+
+.diff-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  background: #3B82F6;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.difference-item p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #4B5563;
+  line-height: 1.5;
+}
+
+.modal-footer {
+  padding: 0 24px 24px;
+}
+
+.modal-footer .close-btn {
+  width: 100%;
+  padding: 14px;
+  background: #1F2937;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ========================================
+   Блок "Ваше расписание"
+   ======================================== */
+.schedule-summary {
+  padding: 20px;
+  background: #F0FDF4;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+.schedule-summary h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #166534;
+  margin: 0 0 12px;
+}
+
+.schedule-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.schedule-icon {
+  font-size: 18px;
+}
+
+.schedule-label {
+  font-size: 15px;
+  color: #166534;
+  width: 60px;
+}
+
+.schedule-time {
+  font-size: 16px;
+  font-weight: 600;
+  color: #166534;
+}

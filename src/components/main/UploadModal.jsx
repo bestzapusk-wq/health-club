@@ -394,6 +394,14 @@ export default function UploadModal({ isOpen, onClose, onSave, userId }) {
           />
         </div>
         
+        {/* Предупреждение о PDF */}
+        {(files.some(f => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf')) || 
+          uploadedFiles.some(f => f.file_type === 'pdf')) && (
+          <div className="upload-warning">
+            ⚠️ PDF-файлы пока не поддерживаются для AI-анализа. Загрузите фото или скриншоты анализов для лучшего результата.
+          </div>
+        )}
+        
         {/* Гарантия безопасности */}
         <div className="upload-security">
           🔒 Ваши данные защищены и доступны только вам

@@ -3,8 +3,11 @@ import { ANALYSIS_PROMPT_TEMPLATE } from '../types/analysisResult';
 
 /**
  * Получить все данные пользователя для анализа
+ * @param {string} userId - ID пользователя
+ * @param {string} profileType - 'self' или 'family'
+ * @param {string|null} familyMemberId - ID родственника
  */
-export async function getUserDataForAnalysis(userId) {
+export async function getUserDataForAnalysis(userId, profileType = 'self', familyMemberId = null) {
   // 1. Получаем ответы опросника
   const { data: surveyData, error: surveyError } = await supabase
     .from('survey_responses')
@@ -127,19 +130,26 @@ export function prepareClaudeMessage(userData) {
 }
 
 /**
- * Сохранить результат анализа
+ * Сохранить результат анализа (создаёт новую запись для истории)
+ * @param {string} userId - ID пользователя
+ * @param {Object} resultData - Результат анализа от Claude
+ * @param {string} profileType - 'self' или 'family'
+ * @param {string|null} familyMemberId - ID родственника (если profileType === 'family')
  */
-export async function saveAnalysisResult(userId, resultData) {
+export async function saveAnalysisResult(userId, resultData, profileType = 'self', familyMemberId = null) {
+  const insertData = {
+    user_id: userId,
+    status: 'completed',
+    result_data: resultData,
+    completed_at: new Date().toISOString(),
+    profile_type: profileType,
+    family_member_id: familyMemberId,
+    analysis_date: new Date().toISOString().split('T')[0]
+  };
+
   const { data, error } = await supabase
     .from('analysis_results')
-    .upsert({
-      user_id: userId,
-      status: 'completed',
-      result_data: resultData,
-      completed_at: new Date().toISOString()
-    }, {
-      onConflict: 'user_id'
-    })
+    .insert(insertData)
     .select()
     .single();
 
@@ -202,8 +212,10 @@ export async function getAnalysisResult(userId) {
  * Сохранить результат анализа напрямую (для тестирования или внешнего API)
  * @param {string} userId - ID пользователя
  * @param {Object} resultData - JSON с результатом анализа от Claude
+ * @param {string} profileType - 'self' или 'family'
+ * @param {string|null} familyMemberId - ID родственника
  */
-export async function saveAnalysisResultDirect(userId, resultData) {
+export async function saveAnalysisResultDirect(userId, resultData, profileType = 'self', familyMemberId = null) {
   // Добавляем метаданные
   const enrichedData = {
     ...resultData,
@@ -216,13 +228,14 @@ export async function saveAnalysisResultDirect(userId, resultData) {
 
   const { data, error } = await supabase
     .from('analysis_results')
-    .upsert({
+    .insert({
       user_id: userId,
       status: 'completed',
       result_data: enrichedData,
-      completed_at: new Date().toISOString()
-    }, {
-      onConflict: 'user_id'
+      completed_at: new Date().toISOString(),
+      profile_type: profileType,
+      family_member_id: familyMemberId,
+      analysis_date: new Date().toISOString().split('T')[0]
     })
     .select()
     .single();
@@ -232,6 +245,92 @@ export async function saveAnalysisResultDirect(userId, resultData) {
     throw new Error('Не удалось сохранить результат анализа');
   }
 
+  return data;
+}
+
+/**
+ * Получить историю разборов для профиля
+ * @param {string} userId - ID пользователя
+ * @param {string} profileType - 'self' или 'family'
+ * @param {string|null} familyMemberId - ID родственника (если profileType === 'family')
+ * @returns {Promise<Array>} Массив разборов отсортированных по дате (новые первые)
+ */
+export async function getAnalysisHistory(userId, profileType = 'self', familyMemberId = null) {
+  let query = supabase
+    .from('analysis_results')
+    .select('id, created_at, result_data, status, profile_type, family_member_id')
+    .eq('user_id', userId)
+    .in('status', ['completed', 'ready']);
+  
+  // Фильтрация по типу профиля
+  if (profileType === 'family' && familyMemberId) {
+    query = query.eq('family_member_id', familyMemberId);
+  } else {
+    // Для 'self' - записи без family_member_id или с profile_type = 'self'
+    query = query.or('family_member_id.is.null,profile_type.eq.self');
+  }
+  
+  const { data, error } = await query.order('created_at', { ascending: false });
+  
+  if (error) {
+    console.error('Error fetching analysis history:', error);
+    return [];
+  }
+  
+  return data || [];
+}
+
+/**
+ * Получить разбор для конкретного профиля (последний)
+ * @param {string} userId - ID пользователя
+ * @param {string} profileType - 'self' или 'family'
+ * @param {string|null} familyMemberId - ID родственника
+ * @returns {Promise<Object|null>} Последний разбор или null
+ */
+export async function getAnalysisForProfile(userId, profileType = 'self', familyMemberId = null) {
+  let query = supabase
+    .from('analysis_results')
+    .select('*')
+    .eq('user_id', userId)
+    .in('status', ['completed', 'ready']);
+  
+  // Фильтрация по типу профиля
+  if (profileType === 'family' && familyMemberId) {
+    query = query.eq('family_member_id', familyMemberId);
+  } else {
+    query = query.or('family_member_id.is.null,profile_type.eq.self');
+  }
+  
+  const { data, error } = await query
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+  
+  if (error && error.code !== 'PGRST116') {
+    console.error('Error fetching analysis for profile:', error);
+    return null;
+  }
+  
+  return data;
+}
+
+/**
+ * Получить разбор по ID
+ * @param {string} analysisId - ID разбора
+ * @returns {Promise<Object|null>} Разбор или null
+ */
+export async function getAnalysisById(analysisId) {
+  const { data, error } = await supabase
+    .from('analysis_results')
+    .select('*')
+    .eq('id', analysisId)
+    .single();
+  
+  if (error && error.code !== 'PGRST116') {
+    console.error('Error fetching analysis by id:', error);
+    throw error;
+  }
+  
   return data;
 }
 

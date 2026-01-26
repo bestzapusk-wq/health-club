@@ -1,0 +1,210 @@
+/* ProgramsListPage.css */
+
+.programs-list-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+/* Header */
+.programs-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 16px 20px;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+}
+
+.programs-header .back-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.header-text p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Content */
+.programs-content {
+  padding: 16px;
+  padding-bottom: 100px;
+}
+
+/* Programs Grid */
+.programs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Program Card */
+.program-card {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.program-card:active {
+  transform: scale(0.98);
+}
+
+.program-tag {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+}
+
+.program-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.program-title {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.program-subtitle {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #888;
+}
+
+.program-hook {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: #4a5568;
+  line-height: 1.4;
+}
+
+.program-meta {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.program-meta .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #666;
+}
+
+.program-meta .meta-item svg {
+  color: #ff9800;
+}
+
+.program-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.program-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.price-current {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff9800;
+}
+
+.price-old {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.program-footer .arrow {
+  color: #ccc;
+}
+
+.program-card:hover .arrow {
+  color: #ff9800;
+}
+
+/* Info Card */
+.programs-info {
+  margin-top: 24px;
+}
+
+.info-card {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.info-card svg {
+  color: #ff9800;
+  flex-shrink: 0;
+}
+
+.info-card h4 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.info-card p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .programs-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

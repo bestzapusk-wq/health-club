@@ -1,4 +1,47 @@
 export const questions = [
+  // ===== ОСНОВНЫЕ ДАННЫЕ (4 вопроса) =====
+  {
+    id: 'basic1',
+    sectionIntro: { icon: "👤", title: "Основные данные", desc: "Расскажите немного о себе" },
+    text: "Ваш пол",
+    type: "single",
+    options: [
+      { label: "Женский", value: "female" },
+      { label: "Мужской", value: "male" }
+    ],
+    saveTo: "gender"
+  },
+  {
+    id: 'basic2',
+    text: "Ваш возраст",
+    type: "number",
+    placeholder: "Например: 35",
+    min: 14,
+    max: 120,
+    suffix: "лет",
+    saveTo: "age"
+  },
+  {
+    id: 'basic3',
+    text: "Ваш рост",
+    type: "number",
+    placeholder: "Например: 165",
+    min: 100,
+    max: 250,
+    suffix: "см",
+    saveTo: "height"
+  },
+  {
+    id: 'basic4',
+    text: "Ваш вес",
+    type: "number",
+    placeholder: "Например: 65",
+    min: 30,
+    max: 300,
+    suffix: "кг",
+    saveTo: "weight"
+  },
+
   // ===== ХРОНИЧЕСКИЕ ЗАБОЛЕВАНИЯ (2 вопроса) =====
   {
     id: 'q1',

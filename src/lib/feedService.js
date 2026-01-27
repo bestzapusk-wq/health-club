@@ -8,8 +8,8 @@ import { supabase } from './supabase';
 const AUTHORS = {
   alisher: {
     name: 'Алишер Латипов',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-    role: 'expert' // эксперт клуба
+    avatar: 'https://static.tildacdn.com/tild3630-3439-4665-b838-373736636331/__2026-01-27__081917.png',
+    role: null // без подписи
   },
   tatyana: {
     name: 'Татьяна',
@@ -102,9 +102,9 @@ const MOCK_POSTS = [
     author_name: AUTHORS.alisher.name,
     author_avatar: AUTHORS.alisher.avatar,
     author_role: AUTHORS.alisher.role,
-    media_url: 'https://storage.supabase.co/example/audio.mp3',
-    duration: 180,
-    text: 'Голосовое сообщение: отвечаю на ваши вопросы про железо и ферритин',
+    media_url: 'https://www2.cs.uic.edu/~i101/SoundFiles/taunt.wav',
+    duration: 5,
+    text: '🎙️ Голосовое сообщение: ответ на ваш вопрос про железо',
     published_at: '2026-01-25T15:00:00Z',
     reactions: { '❤️': 18, '👏': 7 },
     user_reaction: null,

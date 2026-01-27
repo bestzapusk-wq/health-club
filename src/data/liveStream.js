@@ -9,7 +9,7 @@ export const LIVE_STREAM = {
       name: 'Алишер Латипов',
       role: 'Нутрициолог',
       experience: '13 лет опыта',
-      avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100',
+      avatar: 'https://static.tildacdn.com/tild3630-3439-4665-b838-373736636331/__2026-01-27__081917.png',
     },
     {
       name: 'Гузалия Шакурова',

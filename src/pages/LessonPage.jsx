@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, ArrowRight, CheckCircle, Play,
-  Clock, AlertCircle, BookOpen, Users, MessageCircle
+  Clock, AlertCircle, BookOpen, Users, MessageCircle, Heart, Camera, Video
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { 
@@ -12,6 +12,40 @@ import {
 } from '../data/learningModules';
 import './LessonPage.css';
 
+// Демо данные ответов других участников
+const demoAnswers = [
+  {
+    id: 1,
+    author: 'Айгуль М.',
+    avatar: null,
+    text: '1. Пить воду утром натощак\n2. Спать не менее 7 часов\n3. Двигаться каждый день минимум 30 минут',
+    media: null,
+    likes: 12,
+    isLiked: false,
+    date: '2 часа назад'
+  },
+  {
+    id: 2,
+    author: 'Марат К.',
+    avatar: null,
+    text: 'Главное что понял — нужно начинать с малого и не пытаться изменить всё сразу. Постепенность — ключ к успеху!',
+    media: { type: 'image', url: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400' },
+    likes: 8,
+    isLiked: true,
+    date: '5 часов назад'
+  },
+  {
+    id: 3,
+    author: 'Динара С.',
+    avatar: null,
+    text: 'Для меня открытие — что сон влияет на всё остальное. Буду ложиться раньше 🌙',
+    media: null,
+    likes: 24,
+    isLiked: false,
+    date: 'Вчера'
+  }
+];
+
 const LessonPage = () => {
   const { moduleSlug, lessonSlug } = useParams();
   const navigate = useNavigate();
@@ -19,6 +53,16 @@ const LessonPage = () => {
   const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(null);
+  
+  // Состояние формы ответа
+  const [answer, setAnswer] = useState('');
+  const [media, setMedia] = useState(null);
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [answerSubmitted, setAnswerSubmitted] = useState(false);
+  const fileInputRef = useRef(null);
+  
+  // Состояние ленты
+  const [feedAnswers, setFeedAnswers] = useState(demoAnswers);
 
   const module = getModuleBySlug(moduleSlug);
   const lesson = module?.lessons.find(l => l.slug === lessonSlug);
@@ -90,6 +134,39 @@ const LessonPage = () => {
   const goToPrevLesson = () => {
     if (prevLesson) {
       navigate(`/learning/${prevLesson.moduleSlug}/${prevLesson.slug}`);
+    }
+  };
+
+  // Отправка ответа
+  const handleSubmitAnswer = async () => {
+    if (!answer.trim()) return;
+    
+    console.log({ answer, media, isPrivate });
+    setAnswerSubmitted(true);
+    
+    // После отправки ответа отмечаем урок как выполненный
+    if (!completed) {
+      await markAsCompleted();
+    }
+  };
+
+  // Лайк ответа
+  const handleLike = (id) => {
+    setFeedAnswers(prev => prev.map(a => 
+      a.id === id 
+        ? { ...a, isLiked: !a.isLiked, likes: a.isLiked ? a.likes - 1 : a.likes + 1 }
+        : a
+    ));
+  };
+
+  // Обработка файла
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setMedia({
+        url: URL.createObjectURL(file),
+        type: file.type.startsWith('video') ? 'video' : 'image'
+      });
     }
   };
 
@@ -201,65 +278,89 @@ const LessonPage = () => {
 
         {/* ТАБ: Задание */}
         {activeTab === 'task' && (
-          <div className="tab-content">
-            {lesson.isStopLesson && lesson.taskDescription ? (
-              <>
-                <div className="task-card">
-                  <div className="task-header">
-                    <div className="task-icon" style={{ background: module.color }}>
-                      <AlertCircle size={20} />
-                    </div>
-                    <div>
-                      <h3>Задание к уроку</h3>
-                      <span className="task-type">Стоп-урок</span>
-                    </div>
-                  </div>
-                  <p className="task-text">{lesson.taskDescription}</p>
+          <div className="tab-content task-content">
+            {/* Заголовок задания */}
+            <div className="task-header">
+              <div className="task-icon" style={{ background: module.color }}>
+                <Clock size={20} />
+              </div>
+              <div className="task-info">
+                <h3>Задание к уроку</h3>
+                <span className="task-badge">Стоп-урок</span>
+              </div>
+            </div>
+
+            <p className="task-question">
+              {lesson.taskDescription || 'Запишите 3 главных принципа, которые вы усвоили из урока'}
+            </p>
+
+            {/* Если ответ уже отправлен */}
+            {answerSubmitted ? (
+              <div className="completed-banner">
+                <CheckCircle size={24} />
+                <div>
+                  <span className="completed-title">Ответ отправлен!</span>
+                  <span className="completed-subtitle">Можете переходить к следующему уроку</span>
+                </div>
+              </div>
+            ) : (
+              /* Форма ответа */
+              <div className="answer-form">
+                <textarea
+                  className="answer-textarea"
+                  placeholder="Напишите ваш ответ..."
+                  value={answer}
+                  onChange={e => setAnswer(e.target.value.slice(0, 1000))}
+                />
+                <div className="char-count">{answer.length}/1000</div>
+
+                <div className="media-buttons">
+                  <button className="media-btn" onClick={() => fileInputRef.current?.click()}>
+                    <Camera size={16} />
+                    Фото
+                  </button>
+                  <button className="media-btn" onClick={() => fileInputRef.current?.click()}>
+                    <Video size={16} />
+                    Видео
+                  </button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*,video/*"
+                    onChange={handleFileChange}
+                    hidden
+                  />
                 </div>
 
-                {/* Статус выполнения */}
-                {completed ? (
-                  <div className="completed-banner">
-                    <CheckCircle size={24} />
-                    <div>
-                      <span className="completed-title">Задание выполнено!</span>
-                      <span className="completed-subtitle">Можете переходить к следующему уроку</span>
-                    </div>
+                {media && (
+                  <div className="media-preview">
+                    {media.type === 'image' ? (
+                      <img src={media.url} alt="" />
+                    ) : (
+                      <video src={media.url} controls />
+                    )}
+                    <button className="media-remove" onClick={() => setMedia(null)}>✕</button>
                   </div>
-                ) : (
-                  <>
-                    <div className="task-warning">
-                      <AlertCircle size={18} />
-                      <p>Выполните задание и отметьте урок как пройденный</p>
-                    </div>
-                    <button 
-                      className="complete-btn"
-                      onClick={markAsCompleted}
-                      disabled={loading}
-                      style={{ background: module.color }}
-                    >
-                      <CheckCircle size={20} />
-                      {loading ? 'Сохранение...' : 'Отметить как пройденное'}
-                    </button>
-                  </>
                 )}
-              </>
-            ) : (
-              <div className="no-task">
-                <CheckCircle size={48} />
-                <h3>Задания нет</h3>
-                <p>Этот урок не требует выполнения задания</p>
-                {!completed && (
-                  <button 
-                    className="complete-btn"
-                    onClick={markAsCompleted}
-                    disabled={loading}
-                    style={{ background: module.color }}
-                  >
-                    <CheckCircle size={20} />
-                    {loading ? 'Сохранение...' : 'Отметить как пройденное'}
-                  </button>
-                )}
+
+                <label className="privacy-toggle">
+                  <input
+                    type="checkbox"
+                    checked={isPrivate}
+                    onChange={e => setIsPrivate(e.target.checked)}
+                  />
+                  Не показывать в ленте
+                </label>
+
+                <button
+                  className="submit-answer-btn"
+                  disabled={!answer.trim() || loading}
+                  onClick={handleSubmitAnswer}
+                  style={{ background: module.color }}
+                >
+                  <CheckCircle size={18} />
+                  {loading ? 'Отправка...' : 'Отправить ответ'}
+                </button>
               </div>
             )}
           </div>
@@ -267,13 +368,59 @@ const LessonPage = () => {
 
         {/* ТАБ: Лента */}
         {activeTab === 'feed' && (
-          <div className="tab-content">
-            <div className="feed-empty">
-              <Users size={48} />
+          <div className="tab-content feed-content">
+            <div className="feed-title">
               <h3>Лента ответов</h3>
-              <p>Здесь будут отображаться ответы других участников</p>
-              <span className="coming-soon">Скоро</span>
+              <p>Ответы других участников</p>
             </div>
+
+            {feedAnswers.length === 0 ? (
+              <div className="empty-feed">
+                <div className="empty-feed-icon">💬</div>
+                <p>Лента ответов пуста</p>
+                <span>Здесь будут отображаться ответы других участников</span>
+              </div>
+            ) : (
+              feedAnswers.map(item => (
+                <div key={item.id} className="answer-card">
+                  <div className="answer-header">
+                    <div className="answer-avatar">
+                      {item.avatar ? (
+                        <img src={item.avatar} alt="" />
+                      ) : (
+                        item.author.split(' ').map(n => n[0]).join('')
+                      )}
+                    </div>
+                    <div className="answer-author">
+                      <div className="answer-name">{item.author}</div>
+                      <div className="answer-date">{item.date}</div>
+                    </div>
+                  </div>
+
+                  <div className="answer-text">{item.text}</div>
+
+                  {item.media && (
+                    <div className="answer-media">
+                      {item.media.type === 'image' ? (
+                        <img src={item.media.url} alt="" />
+                      ) : (
+                        <video src={item.media.url} controls />
+                      )}
+                    </div>
+                  )}
+
+                  <div className="answer-actions">
+                    <button
+                      className={`like-btn ${item.isLiked ? 'liked' : ''}`}
+                      onClick={() => handleLike(item.id)}
+                    >
+                      <Heart size={16} fill={item.isLiked ? '#e91e63' : 'none'} />
+                      {item.likes}
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         )}
       </div>

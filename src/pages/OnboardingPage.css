@@ -2,9 +2,15 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 40%);
+  background: linear-gradient(180deg, #064E3B 0%, #065F46 50%, #047857 100%);
   padding: 24px 20px;
   padding-bottom: env(safe-area-inset-bottom, 24px);
+  transition: background 0.4s ease;
+}
+
+/* Светлая тема для слайдов 2 и 3 */
+.onboarding-page.light-theme {
+  background: #f5f7fa;
 }
 
 /* Progress dots */
@@ -19,18 +25,31 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #E2E8F0;
+  background: rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
 
 .progress-dot.active {
   width: 24px;
   border-radius: 4px;
-  background: #10B981;
+  background: white;
 }
 
 .progress-dot.done {
-  background: #10B981;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Светлая тема - точки */
+.light-theme .progress-dot {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.light-theme .progress-dot.active {
+  background: #064E3B;
+}
+
+.light-theme .progress-dot.done {
+  background: rgba(6, 78, 59, 0.5);
 }
 
 /* Content area */
@@ -60,225 +79,125 @@
   }
 }
 
-.slide h1 {
-  font-size: 26px;
-  font-weight: 700;
-  color: #1E293B;
-  margin-bottom: 16px;
-  line-height: 1.3;
+/* ============================================
+   Slide 1: Welcome
+   ============================================ */
+.slide-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Slide 1: Welcome */
-.slide-welcome .welcome-illustration {
-  font-size: 64px;
+.welcome-icon {
+  font-size: 80px;
   margin-bottom: 32px;
-  animation: pulse 2s ease infinite;
+  animation: gentlePulse 3s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes gentlePulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
 }
 
-.slide-welcome .subtitle {
-  font-size: 18px;
-  color: #64748B;
-  margin-bottom: 24px;
-  line-height: 1.5;
-}
-
-.slide-welcome .highlight {
-  font-size: 22px;
-  font-weight: 600;
-  color: #10B981;
-}
-
-/* Slide 2: Steps */
-.slide-steps {
-  text-align: left;
-}
-
-.slide-steps h1 {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.steps-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.step-item {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-}
-
-.step-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: #ECFDF5;
-  color: #10B981;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.step-content {
-  flex: 1;
-}
-
-.step-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-
-.step-num {
-  font-size: 16px;
+.welcome-title {
+  font-size: 28px;
   font-weight: 700;
-  color: #10B981;
+  color: white;
+  margin: 0 0 16px;
+  line-height: 1.3;
+  white-space: pre-line;
 }
 
-.step-title {
-  font-size: 17px;
-  font-weight: 600;
-  color: #1E293B;
-}
-
-.step-desc {
-  font-size: 14px;
-  color: #64748B;
+.welcome-subtitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  margin: 0 0 24px;
   line-height: 1.4;
-  margin: 0;
 }
 
-/* Slide 3: Benefits */
-.slide-benefits {
+.welcome-description {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 320px;
+}
+
+/* ============================================
+   Slide 2 & 3: Features (белый фон)
+   ============================================ */
+.slide-features {
   text-align: left;
 }
 
-.slide-benefits h1 {
+.features-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
   text-align: center;
-  margin-bottom: 24px;
+  margin: 0 0 24px;
 }
 
-.benefits-list {
+.features-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
-}
-
-.benefit-item {
-  display: flex;
   gap: 12px;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
   align-items: flex-start;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
-.benefit-check {
-  color: #10B981;
-  flex-shrink: 0;
-  margin-top: 2px;
+.feature-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-.benefit-text {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1E293B;
-  display: block;
-}
-
-.benefit-subtext {
-  font-size: 14px;
-  color: #64748B;
-  display: block;
-}
-
-.testimonial {
-  background: #F8FAFC;
-  border-radius: 16px;
-  padding: 20px;
-  position: relative;
-}
-
-.quote-icon {
-  color: #10B981;
-  opacity: 0.5;
-  margin-bottom: 8px;
-}
-
-.testimonial-text {
-  font-size: 15px;
-  color: #475569;
-  font-style: italic;
-  line-height: 1.5;
-  margin: 0 0 12px 0;
-}
-
-.testimonial-author {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1E293B;
-}
-
-/* Slide 4: Start survey */
-.slide-start {
-  text-align: center;
-}
-
-.start-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
-  color: #10B981;
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #f0f4f8;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
-}
-
-.slide-start .description {
-  font-size: 18px;
-  color: #64748B;
-  margin-bottom: 8px;
-}
-
-.slide-start .tip {
-  font-size: 16px;
-  color: #1E293B;
-  font-weight: 500;
-  margin-bottom: 24px;
-}
-
-.hint-box {
-  background: #FEF3C7;
-  border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.hint-box svg {
-  color: #F59E0B;
+  font-size: 22px;
   flex-shrink: 0;
-  margin-top: 2px;
 }
 
-.hint-box span {
-  font-size: 14px;
-  color: #92400E;
+.feature-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.onboarding-page.light-theme .feature-title,
+.feature-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.feature-desc {
+  font-size: 13px;
+  color: #666;
   line-height: 1.4;
 }
 
-/* Bottom actions */
+/* ============================================
+   Bottom actions
+   ============================================ */
 .onboarding-actions {
   display: flex;
   flex-direction: column;
@@ -301,19 +220,27 @@
 }
 
 .onboarding-btn.primary {
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-  color: white;
+  background: white;
+  color: #064E3B;
   border: none;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Светлая тема - кнопка */
+.light-theme .onboarding-btn.primary {
+  background: linear-gradient(135deg, #064E3B 0%, #047857 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(6, 78, 59, 0.3);
 }
 
 .onboarding-btn.primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .onboarding-btn.primary:active {
   transform: translateY(0);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .onboarding-btn.primary:disabled {
@@ -324,12 +251,202 @@
 
 .onboarding-btn.skip {
   background: transparent;
-  color: #64748B;
+  color: rgba(255, 255, 255, 0.7);
   border: none;
   font-size: 15px;
   font-weight: 500;
 }
 
 .onboarding-btn.skip:hover {
-  color: #475569;
+  color: white;
+}
+
+/* ============================================
+   Legacy styles (kept for compatibility)
+   ============================================ */
+
+/* Slide 2: Steps (legacy - can be removed) */
+.slide-steps {
+  text-align: left;
+}
+
+.slide-steps h1 {
+  text-align: center;
+  margin-bottom: 32px;
+  color: white;
+}
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.step-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.step-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.step-num {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.step-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+}
+
+.step-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Slide 3: Benefits (legacy - can be removed) */
+.slide-benefits {
+  text-align: left;
+}
+
+.slide-benefits h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: white;
+}
+
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.benefit-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.benefit-check {
+  color: rgba(255, 255, 255, 0.8);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.benefit-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  display: block;
+}
+
+.benefit-subtext {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+}
+
+.testimonial {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+}
+
+.quote-icon {
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 8px;
+}
+
+.testimonial-text {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.testimonial-author {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Slide 4: Start survey (legacy - can be removed) */
+.slide-start {
+  text-align: center;
+}
+
+.start-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.slide-start .description {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+}
+
+.slide-start .tip {
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.hint-box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hint-box svg {
+  color: rgba(255, 255, 255, 0.8);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.hint-box span {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
 }

@@ -102,38 +102,165 @@
   margin: 0;
 }
 
-/* Stats Row */
-.health-stats-row {
+/* Переключатель недели */
+.week-nav {
   display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 0 20px;
 }
 
-.health-stat {
-  flex: 1;
-  background: white;
+.week-arrow {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #F3F4F6;
   border-radius: 12px;
-  padding: 14px;
+  font-size: 18px;
+  color: #6B7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.week-arrow:hover {
+  background: #E5E7EB;
+}
+
+.week-arrow:active {
+  background: #D1D5DB;
+}
+
+.week-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Главные карточки */
+.main-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-.health-stat .stat-num {
-  display: block;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.health-stat .stat-label {
+.stat-title {
   font-size: 12px;
-  color: #6B7280;
+  color: #888;
 }
 
-.health-stat.critical .stat-num { color: #EF4444; }
-.health-stat.warning .stat-num { color: #F59E0B; }
-.health-stat.normal .stat-num { color: #22C55E; }
+.stat-big {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 8px 0 4px;
+  color: #1a1a1a;
+}
+
+.stat-big span {
+  font-size: 18px;
+  font-weight: 400;
+  color: #999;
+}
+
+.stat-sub {
+  font-size: 11px;
+  color: #999;
+}
+
+.stat-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.stat-badge.streak { color: #ff9800; }
+.stat-badge.positive { color: #4caf50; }
+.stat-badge.negative { color: #f44336; }
+
+.stat-detail-btn {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  font-size: 11px;
+  color: #666;
+  cursor: pointer;
+}
+
+.stat-detail-btn:hover {
+  background: #ebebeb;
+}
+
+/* Мини карточки */
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.mini-card {
+  background: white;
+  border-radius: 14px;
+  padding: 12px 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.mini-icon {
+  font-size: 18px;
+}
+
+.mini-label {
+  font-size: 10px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.mini-value {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 4px 0;
+  color: #1a1a1a;
+}
+
+.mini-bar {
+  height: 4px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.mini-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.mini-bar-fill.water { background: #2196F3; }
+.mini-bar-fill.activity { background: #4CAF50; }
+.mini-bar-fill.sleep { background: #9C27B0; }
+
+.mini-percent {
+  font-size: 10px;
+  color: #666;
+  margin-top: 4px;
+}
 
 /* Sections */
 .health-section {

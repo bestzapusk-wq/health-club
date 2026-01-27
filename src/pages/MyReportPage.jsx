@@ -21,8 +21,8 @@ import './MyReportPage.css';
 const QUICK_NAV = [
   { id: 'findings', label: 'Находки', icon: '🔍' },
   { id: 'chain', label: 'Связи', icon: '🔗' },
-  { id: 'priorities', label: 'Приоритеты', icon: '🎯' },
   { id: 'details', label: 'Подробно', icon: '📋' },
+  { id: 'priorities', label: 'Приоритеты', icon: '🎯' },
 ];
 
 // Форматирование даты в "15 янв 2026"
@@ -792,7 +792,7 @@ export default function MyReportPage() {
   // Scroll spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['findings', 'chain', 'priorities-section', 'details'];
+      const sections = ['findings', 'chain', 'details', 'priorities-section'];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el) {
@@ -1356,26 +1356,6 @@ export default function MyReportPage() {
           </section>
         )}
 
-        {/* === ПРИОРИТЕТЫ === */}
-        {priorities && priorities.length > 0 && (
-          <section className="priorities-card" id="priorities-section">
-            <h2>🎯 Что делать? Приоритеты</h2>
-            <p className="priorities-subtitle">Обсудите с врачом в первую очередь</p>
-            
-            <div className="priorities-list-new">
-              {priorities.slice(0, 3).map((priority) => (
-                <div key={priority.num} className="priority-item">
-                  <span className="priority-num-circle">{priority.num}</span>
-                  <div className="priority-text">
-                    <strong>{priority.title}</strong>
-                    <p>{priority.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
         {/* === ЧТО В ПОРЯДКЕ === */}
         {goodNews && goodNews.length > 0 && (
           <section className="section">
@@ -1488,6 +1468,26 @@ export default function MyReportPage() {
                       )}
                     </div>
                   )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* === ПРИОРИТЕТЫ === */}
+        {priorities && priorities.length > 0 && (
+          <section className="priorities-card" id="priorities-section">
+            <h2>🎯 Что делать? Приоритеты</h2>
+            <p className="priorities-subtitle">Обсудите с врачом в первую очередь</p>
+            
+            <div className="priorities-list-new">
+              {priorities.slice(0, 3).map((priority) => (
+                <div key={priority.num} className="priority-item">
+                  <span className="priority-num-circle">{priority.num}</span>
+                  <div className="priority-text">
+                    <strong>{priority.title}</strong>
+                    <p>{priority.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>

@@ -52,7 +52,7 @@ export default function MainPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submittedAt, setSubmittedAt] = useState(null);
   const [diaryLoading, setDiaryLoading] = useState(true);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   
   const todayKey = getTodayKey();
   const allCompleted = currentStreak >= 7;

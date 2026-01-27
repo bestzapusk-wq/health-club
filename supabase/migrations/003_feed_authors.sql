@@ -24,7 +24,7 @@ COMMENT ON COLUMN feed_posts.author_role IS 'Роль автора: expert (эк
 UPDATE feed_posts
 SET 
   author_name = 'Алишер Латипов',
-  author_avatar = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+  author_avatar = 'https://static.tildacdn.com/tild3630-3439-4665-b838-373736636331/__2026-01-27__081917.png',
   author_role = 'expert'
 WHERE type != 'event' AND author_name IS NULL;
 
@@ -70,7 +70,7 @@ INSERT INTO feed_posts (
 ) VALUES (
   'video',
   'Алишер Латипов',
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+  'https://static.tildacdn.com/tild3630-3439-4665-b838-373736636331/__2026-01-27__081917.png',
   'expert',
   'https://youtube.com/shorts/CsTIxzNUHTg',
   '3 продукта, которые убивают вашу щитовидку 👇 Смотрите до конца!',
@@ -92,7 +92,7 @@ INSERT INTO feed_posts (
 ) VALUES (
   'audio',
   'Алишер Латипов',
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+  'https://static.tildacdn.com/tild3630-3439-4665-b838-373736636331/__2026-01-27__081917.png',
   'expert',
   'https://storage.supabase.co/example/audio.mp3',
   180,
@@ -113,7 +113,7 @@ INSERT INTO feed_posts (
 ) VALUES (
   'text',
   'Алишер Латипов',
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+  'https://static.tildacdn.com/tild3630-3439-4665-b838-373736636331/__2026-01-27__081917.png',
   'expert',
   'Утренний ритуал, который изменит ваш день ☀️
 

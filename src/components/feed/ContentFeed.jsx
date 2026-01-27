@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { PenSquare, Newspaper } from 'lucide-react';
 import FeedPost from './FeedPost';
 import FeedSkeleton from './FeedSkeleton';
+import CreatePostModal from './CreatePostModal';
 import { getFeedPosts } from '../../lib/feedService';
 import './ContentFeed.css';
 
@@ -10,6 +11,7 @@ export default function ContentFeed({ userId }) {
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const observerRef = useRef(null);
   const loadMoreRef = useRef(null);
 
@@ -71,8 +73,8 @@ export default function ContentFeed({ userId }) {
     ));
   };
 
-  const handleSuggestPostLoading = () => {
-    alert('Функция в разработке! Скоро вы сможете предлагать публикации.');
+  const handleSuggestPost = () => {
+    setShowCreateModal(true);
   };
 
   if (loading) {
@@ -83,12 +85,16 @@ export default function ContentFeed({ userId }) {
             <Newspaper size={20} className="feed-icon" />
             <h2>Лента здоровья</h2>
           </div>
-          <button className="suggest-post-btn" onClick={handleSuggestPostLoading}>
+          <button className="suggest-post-btn" onClick={handleSuggestPost}>
             <PenSquare size={16} />
             <span>Предложить</span>
           </button>
         </div>
         <FeedSkeleton count={3} />
+        <CreatePostModal 
+          isOpen={showCreateModal} 
+          onClose={() => setShowCreateModal(false)} 
+        />
       </div>
     );
   }
@@ -101,19 +107,19 @@ export default function ContentFeed({ userId }) {
             <Newspaper size={20} className="feed-icon" />
             <h2>Лента здоровья</h2>
           </div>
-          <button className="suggest-post-btn" onClick={handleSuggestPostLoading}>
+          <button className="suggest-post-btn" onClick={handleSuggestPost}>
             <PenSquare size={16} />
             <span>Предложить</span>
           </button>
         </div>
         <p>Пока нет публикаций</p>
+        <CreatePostModal 
+          isOpen={showCreateModal} 
+          onClose={() => setShowCreateModal(false)} 
+        />
       </div>
     );
   }
-
-  const handleSuggestPost = () => {
-    alert('Функция в разработке! Скоро вы сможете предлагать публикации.');
-  };
 
   return (
     <div className="content-feed">
@@ -152,6 +158,12 @@ export default function ContentFeed({ userId }) {
           <span>Вы прочитали все посты 🎉</span>
         </div>
       )}
+
+      {/* Модалка создания поста */}
+      <CreatePostModal 
+        isOpen={showCreateModal} 
+        onClose={() => setShowCreateModal(false)} 
+      />
     </div>
   );
 }

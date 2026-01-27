@@ -103,6 +103,8 @@
   font-weight: 600;
   color: #334155;
   padding: 0 8px;
+  min-width: 180px;
+  text-align: center;
 }
 
 /* Legacy header (not used) */

@@ -7,6 +7,44 @@ import {
 import BottomNav from '../components/layout/BottomNav';
 import './HealthScreenPage.css';
 
+// Форматирование даты
+const formatDateLabel = (date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const targetDate = new Date(date);
+  targetDate.setHours(0, 0, 0, 0);
+  
+  const diffDays = Math.round((targetDate - today) / (1000 * 60 * 60 * 24));
+  
+  const dayNames = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+  const monthsShort = ['янв.', 'фев.', 'мар.', 'апр.', 'мая', 'июн.', 'июл.', 'авг.', 'сен.', 'окт.', 'ноя.', 'дек.'];
+  const monthsFull = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+  
+  const dayOfWeek = dayNames[targetDate.getDay()];
+  const dayNum = targetDate.getDate();
+  
+  if (diffDays === 0) {
+    return `Сегодня | ${dayOfWeek}, ${dayNum} ${monthsShort[targetDate.getMonth()]}`;
+  } else if (diffDays === -1) {
+    return `Вчера | ${dayOfWeek}, ${dayNum} ${monthsShort[targetDate.getMonth()]}`;
+  } else if (diffDays === 1) {
+    return `Завтра | ${dayOfWeek}, ${dayNum} ${monthsShort[targetDate.getMonth()]}`;
+  } else {
+    return `${dayNum} ${monthsFull[targetDate.getMonth()]}`;
+  }
+};
+
+// Демо данные статистики образа жизни
+const demoStats = {
+  currentDate: new Date(), // сегодня
+  lifestyle: { daysReported: 6, totalDays: 7, streak: 6 },
+  nutrition: { avgScore: 7.2, trend: +0.5 },
+  water: { avg: 2.1, goalPercent: 85 },
+  activity: { avgMinutes: 42, goalPercent: 57 },
+  sleep: { avgHours: 7.5, goalPercent: 94 }
+};
+
 // Тестовые данные результатов здоровья
 const MOCK_DATA = {
   summary: {
@@ -208,37 +246,60 @@ export default function HealthScreenPage() {
           </div>
         </div>
 
-        {/* Stats Row */}
-        <div className="health-stats-row">
-          <div className="health-stat critical">
-            <span className="stat-num">{data.stats.critical}</span>
-            <span className="stat-label">Критично</span>
+        {/* Переключатель даты */}
+        <div className="week-nav">
+          <button className="week-arrow">‹</button>
+          <span className="week-label">{formatDateLabel(demoStats.currentDate)}</span>
+          <button className="week-arrow">›</button>
+        </div>
+
+        {/* Две главные карточки */}
+        <div className="main-stats">
+          <div className="stat-card">
+            <div className="stat-title">📊 Образ жизни</div>
+            <div className="stat-big">{demoStats.lifestyle.daysReported}<span>/{demoStats.lifestyle.totalDays}</span></div>
+            <div className="stat-sub">дней с отчётом</div>
+            <div className="stat-badge streak">🔥 {demoStats.lifestyle.streak} дней подряд</div>
+            <button className="stat-detail-btn">Подробнее</button>
           </div>
-          <div className="health-stat warning">
-            <span className="stat-num">{data.stats.warning}</span>
-            <span className="stat-label">Внимание</span>
-          </div>
-          <div className="health-stat normal">
-            <span className="stat-num">{data.stats.normal}</span>
-            <span className="stat-label">В норме</span>
+
+          <div className="stat-card">
+            <div className="stat-title">🍽️ Питание</div>
+            <div className="stat-big" style={{color: '#8BC34A'}}>{demoStats.nutrition.avgScore}</div>
+            <div className="stat-sub">средняя оценка</div>
+            <div className={`stat-badge ${demoStats.nutrition.trend >= 0 ? 'positive' : 'negative'}`}>
+              {demoStats.nutrition.trend >= 0 ? '📈' : '📉'} {demoStats.nutrition.trend >= 0 ? '+' : ''}{demoStats.nutrition.trend} к прошлой
+            </div>
+            <button className="stat-detail-btn">Подробнее</button>
           </div>
         </div>
 
-        {/* Priorities */}
-        <section className="health-section">
-          <h2 className="section-title">🎯 Что делать в первую очередь</h2>
-          <div className="priorities-list">
-            {data.priorities.map(p => (
-              <div key={p.num} className="priority-card">
-                <span className="priority-num">{p.num}</span>
-                <div className="priority-content">
-                  <h3>{p.title}</h3>
-                  <p>{p.desc}</p>
-                </div>
-              </div>
-            ))}
+        {/* Три мини-карточки */}
+        <div className="mini-stats">
+          <div className="mini-card">
+            <div className="mini-icon">💧</div>
+            <div className="mini-label">Вода</div>
+            <div className="mini-value">{demoStats.water.avg}л</div>
+            <div className="mini-bar"><div className="mini-bar-fill water" style={{width: `${demoStats.water.goalPercent}%`}}></div></div>
+            <div className="mini-percent">{demoStats.water.goalPercent}%</div>
           </div>
-        </section>
+
+          <div className="mini-card">
+            <div className="mini-icon">🏃</div>
+            <div className="mini-label">Активность</div>
+            <div className="mini-value">{demoStats.activity.avgMinutes}м</div>
+            <div className="mini-bar"><div className="mini-bar-fill activity" style={{width: `${demoStats.activity.goalPercent}%`}}></div></div>
+            <div className="mini-percent">{demoStats.activity.goalPercent}%</div>
+          </div>
+
+          <div className="mini-card">
+            <div className="mini-icon">😴</div>
+            <div className="mini-label">Сон</div>
+            <div className="mini-value">{demoStats.sleep.avgHours}ч</div>
+            <div className="mini-bar"><div className="mini-bar-fill sleep" style={{width: `${demoStats.sleep.goalPercent}%`}}></div></div>
+            <div className="mini-percent">{demoStats.sleep.goalPercent}%</div>
+          </div>
+        </div>
 
         {/* Key Indicators */}
         <section className="health-section indicators-section">
@@ -309,6 +370,22 @@ export default function HealthScreenPage() {
                 </div>
               );
             })}
+          </div>
+        </section>
+
+        {/* Priorities */}
+        <section className="health-section">
+          <h2 className="section-title">🎯 Что делать в первую очередь</h2>
+          <div className="priorities-list">
+            {data.priorities.map(p => (
+              <div key={p.num} className="priority-card">
+                <span className="priority-num">{p.num}</span>
+                <div className="priority-content">
+                  <h3>{p.title}</h3>
+                  <p>{p.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

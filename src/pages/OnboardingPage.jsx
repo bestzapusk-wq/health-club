@@ -1,53 +1,74 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight, ClipboardList, Paperclip, Target, Lightbulb, CheckCircle, Quote } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import './OnboardingPage.css';
 
 const SLIDES = [
   {
     id: 'welcome',
-    illustration: '😩➡️💪',
-    title: 'Устали чувствовать усталость?',
-    subtitle: 'Врачи говорят "всё в норме", а сил всё равно нет?',
-    highlight: 'Мы найдём причину.',
-    buttonText: 'Продолжить'
+    type: 'welcome',
+    icon: '🌿',
+    title: 'Добро пожаловать\nв Клуб Alimi Health',
+    subtitle: 'Ваше здоровье начинается здесь',
+    description: 'Персональный подход к восстановлению под руководством нутрициолога с 13-летним опытом',
+    buttonText: 'Далее'
   },
   {
-    id: 'how-it-works',
-    title: 'Как это работает?',
-    steps: [
-      { icon: ClipboardList, num: '1', title: 'Расскажите о себе', desc: '5 минут на вопросы о вашем самочувствии' },
-      { icon: Paperclip, num: '2', title: 'Загрузите анализы', desc: 'Фото или PDF — любые анализы крови' },
-      { icon: Target, num: '3', title: 'Получите рекомендации', desc: 'AI найдёт связи и покажет приоритеты' }
+    id: 'features',
+    type: 'features',
+    title: 'Что вас ждёт в клубе',
+    features: [
+      {
+        icon: '📋',
+        title: 'Персональный план восстановления',
+        description: 'Составленный под ваши анализы и симптомы'
+      },
+      {
+        icon: '🎬',
+        title: 'Записи эфиров и видео-уроки',
+        description: 'База знаний о здоровье в удобном формате'
+      },
+      {
+        icon: '💬',
+        title: 'Обратная связь от нутрициологов',
+        description: 'Ответы на ваши вопросы'
+      },
+      {
+        icon: '📊',
+        title: 'Подробный контроль здоровья',
+        description: 'Трекеры, дневники, прогресс'
+      }
     ],
-    buttonText: 'Понятно, начнём!'
+    buttonText: 'Интересно!'
   },
   {
-    id: 'benefits',
-    title: 'Что вы получите:',
-    benefits: [
-      { text: 'Поймёте ПОЧЕМУ нет сил', subtext: '(не просто цифры, а причины)' },
-      { text: 'Увидите СВЯЗИ между симптомами', subtext: '(то, что врачи не замечают)' },
-      { text: 'Узнаете ЧТО ДЕЛАТЬ первым', subtext: '(приоритеты, а не список)' }
+    id: 'tools',
+    type: 'features',
+    title: 'Умные инструменты клуба',
+    features: [
+      {
+        icon: '🔬',
+        title: 'Нейро-сканер питания',
+        description: 'AI анализирует фото вашей еды'
+      },
+      {
+        icon: '📰',
+        title: 'Лента новостей клуба',
+        description: 'Свежий контент и анонсы'
+      },
+      {
+        icon: '💊',
+        title: 'Трекер привычек и витаминов',
+        description: 'Не забудете ничего важного'
+      },
+      {
+        icon: '🏆',
+        title: 'Личные и командные челленджи',
+        description: 'Мотивация через сообщество'
+      }
     ],
-    testimonial: {
-      text: 'Наконец-то поняла почему я так устаю! За 5 минут узнала больше, чем за год походов по врачам',
-      author: 'Анна, 38 лет'
-    },
-    buttonText: 'Хочу разобраться!'
-  },
-  {
-    id: 'start-survey',
-    title: 'Начнём с опросника',
-    description: 'Это займёт около 5 минут.',
-    tip: 'Чем честнее ответите — тем точнее будут рекомендации.',
-    hint: {
-      icon: Lightbulb,
-      text: 'Можно пропустить вопрос, если не знаете ответ — это нормально'
-    },
-    buttonText: 'Начать опросник',
-    skipText: 'Пропустить (заполню позже)'
+    buttonText: 'Начать!'
   }
 ];
 
@@ -94,18 +115,16 @@ export default function OnboardingPage() {
 
   const handleNext = () => {
     if (isLastSlide) {
-      completeOnboarding(true);
+      completeOnboarding(false);
     } else {
       setCurrentSlide(prev => prev + 1);
     }
   };
 
-  const handleSkip = () => {
-    completeOnboarding(false);
-  };
+  const isLightTheme = slide.type !== 'welcome';
 
   return (
-    <div className="onboarding-page">
+    <div className={`onboarding-page ${isLightTheme ? 'light-theme' : ''}`}>
       {/* Progress dots */}
       <div className="onboarding-progress">
         {SLIDES.map((_, idx) => (
@@ -117,82 +136,36 @@ export default function OnboardingPage() {
       </div>
 
       <div className="onboarding-content">
-        {/* Slide 1: Welcome */}
-        {slide.id === 'welcome' && (
+        {/* Slide: Welcome */}
+        {slide.type === 'welcome' && (
           <div className="slide slide-welcome">
-            <div className="welcome-illustration">
-              {slide.illustration}
+            <div className="welcome-icon">
+              {slide.icon}
             </div>
-            <h1>{slide.title}</h1>
-            <p className="subtitle">{slide.subtitle}</p>
-            <p className="highlight">{slide.highlight}</p>
+            <h1 className="welcome-title">{slide.title}</h1>
+            <p className="welcome-subtitle">{slide.subtitle}</p>
+            <p className="welcome-description">{slide.description}</p>
           </div>
         )}
 
-        {/* Slide 2: How it works */}
-        {slide.id === 'how-it-works' && (
-          <div className="slide slide-steps">
-            <h1>{slide.title}</h1>
-            <div className="steps-list">
-              {slide.steps.map((step, idx) => {
-                const Icon = step.icon;
-                return (
-                  <div key={idx} className="step-item">
-                    <div className="step-icon">
-                      <Icon size={24} />
-                    </div>
-                    <div className="step-content">
-                      <div className="step-header">
-                        <span className="step-num">{step.num}.</span>
-                        <span className="step-title">{step.title}</span>
-                      </div>
-                      <p className="step-desc">{step.desc}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Slide 3: Benefits */}
-        {slide.id === 'benefits' && (
-          <div className="slide slide-benefits">
-            <h1>{slide.title}</h1>
-            <div className="benefits-list">
-              {slide.benefits.map((benefit, idx) => (
-                <div key={idx} className="benefit-item">
-                  <CheckCircle size={20} className="benefit-check" />
-                  <div>
-                    <span className="benefit-text">{benefit.text}</span>
-                    <span className="benefit-subtext">{benefit.subtext}</span>
+        {/* Slide: Features */}
+        {slide.type === 'features' && (
+          <div className="slide slide-features">
+            <h2 className="features-title">{slide.title}</h2>
+            <div className="features-list">
+              {slide.features.map((feature, idx) => (
+                <div key={idx} className="feature-card">
+                  <span className="feature-icon">{feature.icon}</span>
+                  <div className="feature-content">
+                    <div className="feature-title">{feature.title}</div>
+                    <div className="feature-desc">{feature.description}</div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="testimonial">
-              <Quote size={20} className="quote-icon" />
-              <p className="testimonial-text">"{slide.testimonial.text}"</p>
-              <span className="testimonial-author">— {slide.testimonial.author}</span>
-            </div>
           </div>
         )}
 
-        {/* Slide 4: Start survey */}
-        {slide.id === 'start-survey' && (
-          <div className="slide slide-start">
-            <div className="start-icon">
-              <ClipboardList size={48} />
-            </div>
-            <h1>{slide.title}</h1>
-            <p className="description">{slide.description}</p>
-            <p className="tip">{slide.tip}</p>
-            <div className="hint-box">
-              <Lightbulb size={18} />
-              <span>{slide.hint.text}</span>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Bottom actions */}
@@ -205,16 +178,6 @@ export default function OnboardingPage() {
           {isLoading ? 'Загрузка...' : slide.buttonText}
           {!isLoading && <ChevronRight size={20} />}
         </button>
-        
-        {isLastSlide && (
-          <button 
-            className="onboarding-btn skip"
-            onClick={handleSkip}
-            disabled={isLoading}
-          >
-            {slide.skipText}
-          </button>
-        )}
       </div>
     </div>
   );

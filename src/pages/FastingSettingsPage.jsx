@@ -63,7 +63,7 @@ const TIME_PRESETS = [
 
 export default function FastingSettingsPage() {
   const navigate = useNavigate();
-  const [step, setStep] = useState(0); // 0: intro, 1: goal, 2: schedule, 3: complete
+  const [step, setStep] = useState(1); // 1: goal, 2: schedule, 3: complete
   const [selectedMode, setSelectedMode] = useState('16:8');
   const [selectedTimePreset, setSelectedTimePreset] = useState('noon');
   const [customTime, setCustomTime] = useState('12:00');
@@ -187,7 +187,7 @@ export default function FastingSettingsPage() {
   };
 
   const handleBack = () => {
-    if (step > 0) {
+    if (step > 1) {
       setStep(step - 1);
     } else {
       navigate(-1);
@@ -241,11 +241,10 @@ export default function FastingSettingsPage() {
       {/* Header */}
       <header className="fasting-ob-header">
         <button className="fasting-ob-back" onClick={step === 3 ? handleClose : handleBack}>
-          {step === 0 ? <X size={24} /> : <ArrowLeft size={24} />}
+          {step === 1 ? <X size={24} /> : <ArrowLeft size={24} />}
         </button>
         <h1 className="fasting-ob-title">
-          {step === 0 && 'Периодическое голодание'}
-          {step === 1 && 'Выберите цель'}
+          {step === 1 && 'Выберите режим'}
           {step === 2 && 'Установите расписание'}
           {step === 3 && 'Готово!'}
         </h1>
@@ -254,29 +253,6 @@ export default function FastingSettingsPage() {
       {/* Content */}
       <main className="fasting-ob-content">
         
-        {/* Step 0: Intro */}
-        {step === 0 && (
-          <div className="fasting-intro-screen">
-            <div className="intro-hero">
-              <div className="intro-icon-circle">
-                <Clock size={48} />
-              </div>
-              <h2>Преобразуйте свое здоровье с помощью интервального голодания</h2>
-              <p>
-                Откройте силу ограничения по времени приема пищи. 
-                Выберите свое окно голодания и начните свое путешествие 
-                к лучшему здоровью сегодня.
-              </p>
-            </div>
-
-            <div className="intro-dots">
-              <span className="dot active"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-            </div>
-          </div>
-        )}
-
         {/* Step 1: Select Goal/Mode */}
         {step === 1 && (
           <div className="fasting-goal-screen">
@@ -504,18 +480,6 @@ export default function FastingSettingsPage() {
 
       {/* Footer */}
       <footer className="fasting-ob-footer">
-        {step === 0 && (
-          <>
-            <Button fullWidth onClick={handleNext}>
-              Начать <ChevronRight size={20} />
-            </Button>
-            <p className="fasting-disclaimer">
-              Проконсультируйтесь с врачом перед началом любой программы голодания, 
-              особенно если у вас есть проблемы со здоровьем.
-            </p>
-          </>
-        )}
-        
         {(step === 1 || step === 2) && (
           <Button 
             fullWidth 

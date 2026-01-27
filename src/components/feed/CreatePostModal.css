@@ -1,0 +1,283 @@
+/* Оверлей */
+.create-post-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  z-index: 1000;
+  animation: createPostFadeIn 0.2s ease;
+}
+
+@keyframes createPostFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Контент модалки */
+.create-post-modal {
+  background: white;
+  width: 100%;
+  max-height: 90vh;
+  border-radius: 24px 24px 0 0;
+  padding: 20px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  animation: createPostSlideUp 0.3s ease;
+}
+
+@keyframes createPostSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Шапка */
+.create-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.create-post-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: #1a1a2e;
+}
+
+.create-post-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.create-post-close:hover {
+  background: #e0e0e0;
+}
+
+/* Textarea */
+.create-post-textarea {
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 15px;
+  font-family: inherit;
+  resize: none;
+  line-height: 1.5;
+  color: #333;
+  transition: border-color 0.2s;
+}
+
+.create-post-textarea::placeholder {
+  color: #999;
+}
+
+.create-post-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.create-post-counter {
+  text-align: right;
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.create-post-counter.warning {
+  color: #ff9800;
+}
+
+.create-post-counter.error {
+  color: #f44336;
+}
+
+/* Кнопки медиа */
+.create-post-media-buttons {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.create-post-media-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background: #f9f9f9;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.create-post-media-btn:hover {
+  background: #f0f0f0;
+  border-color: #ccc;
+}
+
+.create-post-media-btn svg {
+  color: #667eea;
+}
+
+/* Превью медиа */
+.create-post-media-preview {
+  position: relative;
+  margin: 12px 0;
+}
+
+.create-post-media-preview img,
+.create-post-media-preview video {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.create-post-media-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.create-post-media-remove:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Категории */
+.create-post-category-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.create-post-category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.create-post-category-option {
+  padding: 14px 8px;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+
+.create-post-category-option:hover {
+  border-color: #ccc;
+}
+
+.create-post-category-option.selected {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.08);
+}
+
+.create-post-category-icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.create-post-category-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: #666;
+}
+
+.create-post-category-option.selected .create-post-category-name {
+  color: #667eea;
+}
+
+/* Анонимность */
+.create-post-anonymous {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.create-post-anonymous input {
+  width: 20px;
+  height: 20px;
+  accent-color: #667eea;
+  cursor: pointer;
+}
+
+.create-post-anonymous span {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Кнопка отправки */
+.create-post-submit {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.create-post-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.create-post-submit:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+.create-post-submit:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+/* Подсказка */
+.create-post-note {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin: 12px 0 0;
+}

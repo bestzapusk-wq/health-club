@@ -86,26 +86,6 @@ const LearningPage = () => {
           <p className="header-subtitle">Ваш путь к здоровью начинается здесь</p>
         </header>
 
-        {/* Категории */}
-        <div className="categories-section">
-          {categories.map((cat) => {
-            const Icon = cat.icon;
-            return (
-              <button
-                key={cat.id}
-                className="category-chip"
-                style={{ '--cat-color': cat.color }}
-                onClick={() => navigate(`/materials?category=${cat.id}`)}
-              >
-                <div className="category-icon-wrap">
-                  <Icon size={18} />
-                </div>
-                <span>{cat.label}</span>
-              </button>
-            );
-          })}
-        </div>
-
         {/* Карточка прогресса */}
         <div className="total-progress-card">
           <div className="progress-left">
@@ -188,6 +168,32 @@ const LearningPage = () => {
                   </div>
                 </div>
               </div>
+            );
+          })}
+        </div>
+
+        {/* Категории материалов - внизу */}
+        <div className="section-header" style={{ marginTop: '24px' }}>
+          <h2>Материалы</h2>
+        </div>
+        <div className="categories-vertical">
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+            return (
+              <button
+                key={cat.id}
+                className="category-card"
+                style={{ '--cat-color': cat.color }}
+                onClick={() => navigate(`/materials?category=${cat.id}`)}
+              >
+                <div className="category-card-icon">
+                  <Icon size={22} />
+                </div>
+                <div className="category-card-content">
+                  <span className="category-card-label">{cat.label}</span>
+                </div>
+                <ChevronRight size={20} className="category-card-arrow" />
+              </button>
             );
           })}
         </div>

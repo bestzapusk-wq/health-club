@@ -250,6 +250,7 @@
   transition: all 0.2s;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.06);
   text-align: left;
+  color: #1E293B;
 }
 
 .profile-feature-card:hover {
@@ -266,6 +267,14 @@
   color: white;
   box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
   margin-bottom: 16px;
+}
+
+.profile-feature-card.vitamins .feature-title {
+  color: white !important;
+}
+
+.profile-feature-card.vitamins .feature-text {
+  color: white;
 }
 
 .profile-feature-card.vitamins .feature-arrow {
@@ -311,9 +320,10 @@
   color: #1E293B;
 }
 
-.profile-feature-card.vitamins .feature-title {
-  color: white;
+.profile-feature-card .feature-arrow {
+  color: #94A3B8;
 }
+
 
 .feature-subtitle {
   font-size: 13px;
